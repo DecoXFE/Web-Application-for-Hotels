@@ -1,13 +1,20 @@
 package com.uva.reserva.model;
 
+import jakarta.persistence.Basic;
 import jakarta.persistence.Embeddable;
 
 @Embeddable
 public class Address {
+    
+    @Basic(optional = false)
     private String streetKind;
+    @Basic(optional = false)
     private String streetName;
+    @Basic(optional = false)
     private int number;
+    @Basic(optional = false)
     private String postCode;
+    @Basic(optional = false)
     private String otherInfo;
 
     public Address(){
