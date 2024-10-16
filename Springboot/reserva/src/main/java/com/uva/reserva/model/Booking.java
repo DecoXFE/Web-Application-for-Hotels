@@ -2,25 +2,45 @@ package com.uva.reserva.model;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Booking {
     @Id
     @GeneratedValue
+    @Basic(optional = false)
     private long id;
+
+    @Basic(optional = false)
     private LocalDate startDate;
+    
+    @Basic(optional = false)
     private LocalDate endDate;
+
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.MERGE)
+    private User userId;
+
+    @JoinColumn(name = "room_id", referencedColumnName = "id")
+    @ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.MERGE)
+    private Room roomId;
 
     public Booking(){
 
     }
 
-    public Booking(LocalDate startDate, LocalDate endDate) {
+    public Booking(LocalDate startDate, LocalDate endDate, User user, Room room) {
         this.startDate = startDate;
         this.endDate = endDate;
+        this.userId = user;
+        this.roomId = room;
     }
 
     public long getId() {
@@ -45,5 +65,21 @@ public class Booking {
 
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
+    }
+
+    public User getUserId() {
+        return userId;
+    }
+
+    public void setUserId(User userId) {
+        this.userId = userId;
+    }
+
+    public Room getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(Room roomId) {
+        this.roomId = roomId;
     }
 }

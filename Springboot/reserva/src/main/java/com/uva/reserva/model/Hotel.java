@@ -1,16 +1,30 @@
 package com.uva.reserva.model;
 
+import java.util.List;
+
+import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Hotel {
     @Id
     @GeneratedValue
+    @Basic(optional = false)
     private long id;
+
+    @Basic(optional = false)
     private String name;
+    
+    @Basic(optional = false)
     private Address address;
+
+    @OneToMany(mappedBy = "hotelId", fetch=FetchType.EAGER, cascade = CascadeType.MERGE)
+    private List<Room> roomCollection;
 
     public Hotel(){
 
@@ -43,5 +57,13 @@ public class Hotel {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public List<Room> getRoomCollection() {
+        return roomCollection;
+    }
+
+    public void setRoomCollection(List<Room> roomCollection) {
+        this.roomCollection = roomCollection;
     }
 }

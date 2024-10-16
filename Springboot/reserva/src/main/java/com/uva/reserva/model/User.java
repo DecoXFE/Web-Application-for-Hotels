@@ -1,19 +1,39 @@
 package com.uva.reserva.model;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="id")
 public class User {
     @Id
     @GeneratedValue
+    @Basic(optional = false)
     private long id;
+    
+    @Basic(optional = false)
     private String name;
+    
+    @Basic(optional = false)
     private String email;
+    
+    @Basic(optional = false)
     private @Enumerated(EnumType.STRING) UserStatus status;
+
+    @OneToMany(mappedBy = "userId", fetch=FetchType.EAGER, cascade = CascadeType.MERGE)
+    private List<Booking> bookingCollection;
 
     public User(){
 
@@ -55,5 +75,13 @@ public class User {
 
     public void setStatus(UserStatus status) {
         this.status = status;
+    }
+
+    public List<Booking> getBookingCollection() {
+        return bookingCollection;
+    }
+
+    public void setBookingCollection(List<Booking> bookingCollection) {
+        this.bookingCollection = bookingCollection;
     }
 }
