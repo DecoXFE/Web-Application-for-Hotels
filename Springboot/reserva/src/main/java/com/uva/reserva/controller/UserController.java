@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 
 @RestController
-@RequestMapping("/RoomBooking")
-public class RoomBookingController {
+@RequestMapping("/RoomBooking/users")
+public class UserController {
     
     @GetMapping()
     public String getMethodName() {
-        return "Hola";
+        return "Hola user";
     }
 }
