@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.Basic;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -18,6 +17,10 @@ import jakarta.persistence.OneToMany;
 
 @Entity
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="id")
+/*
+ TODO: Revisar optionals
+ TODO: Revisar CascadeType
+ */
 public class User {
     @Id
     @GeneratedValue
@@ -34,7 +37,7 @@ public class User {
     @Basic(optional = false)
     private @Enumerated(EnumType.STRING) UserStatus status;
 
-    @OneToMany(mappedBy = "userId", fetch=FetchType.EAGER, cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "userId", fetch=FetchType.EAGER)
     private List<Booking> bookingCollection;
 
     public User(){

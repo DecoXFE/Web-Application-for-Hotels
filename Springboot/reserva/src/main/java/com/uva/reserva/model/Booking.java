@@ -17,6 +17,10 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="id")
+/*
+ TODO: Revisar optionals
+ TODO: Revisar CascadeType
+ */
 public class Booking {
     @Id
     @GeneratedValue

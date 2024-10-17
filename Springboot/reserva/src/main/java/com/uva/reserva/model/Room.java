@@ -28,6 +28,10 @@ import jakarta.persistence.OneToMany;
         query = "SELECT R FROM Room R WHERE R.hotelId.id = ?1 AND R.available = true AND NOT EXISTS(SELECT B FROM Booking B WHERE B.roomId = R AND B.startDate <= ?3 AND B.endDate >= ?2)"
     )
 })
+/*
+ TODO: Revisar optionals
+ TODO: Revisar CascadeType
+ */
 public class Room {
     @Id
     @GeneratedValue
@@ -43,7 +47,7 @@ public class Room {
     @Basic(optional = false)
     private boolean available;
 
-    @OneToMany(mappedBy = "roomId", fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "roomId", fetch=FetchType.EAGER)
     private List<Booking> bookingCollection;
 
     @JoinColumn(name = "hotel_id", referencedColumnName = "id")

@@ -37,7 +37,11 @@ public class BookingController {
         this.userRepository = ur;
     }
     
-    //Crea una nueva reserva de habitacion para un usuario.
+    /* 
+    * Crea una nueva reserva de habitacion para un usuario.
+    ? Debería roomId y userId pasarse por URI?
+    TODO: Comprobar al crear la reserva que la habitación es válida y las fechas también 
+    */
     @PostMapping()
     public void createBooking(@RequestBody Booking newBooking,
             @RequestParam Integer roomId,
@@ -58,7 +62,11 @@ public class BookingController {
         }
     }
 
-    //Devuelve la lista de las reservas en unas fechas y/o para una habitación dada (con query en la URI).
+    /*
+    Devuelve la lista de las reservas en unas fechas y/o para una habitación 
+    dada (con query en la URI).
+    TODO: Agregar posibilidad para buscar por las 3 combinaciones
+    */
     @GetMapping()
     public List<Booking> findBookings(@RequestParam Integer roomId) {
         Optional<Room> room = roomRepository.findById(roomId);
@@ -69,6 +77,6 @@ public class BookingController {
     //Elimina una reserva existente.
     @DeleteMapping("/{id}")
     public void deleteBooking(@PathVariable Integer id){
-        bookingRepository.deleteAll();
+        bookingRepository.deleteById(id);
     }
 }

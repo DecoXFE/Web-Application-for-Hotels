@@ -15,6 +15,10 @@ import jakarta.persistence.OneToMany;
 
 @Entity
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="id")
+/*
+ TODO: Revisar optionals
+ TODO: Revisar CascadeType
+ */
 public class Hotel {
     @Id
     @GeneratedValue
