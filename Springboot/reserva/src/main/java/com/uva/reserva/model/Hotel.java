@@ -2,6 +2,9 @@ package com.uva.reserva.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -11,11 +14,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
 @Entity
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="id")
 public class Hotel {
     @Id
     @GeneratedValue
     @Basic(optional = false)
-    private long id;
+    private Integer id;
 
     @Basic(optional = false)
     private String name;
@@ -23,7 +27,7 @@ public class Hotel {
     @Basic(optional = false)
     private Address address;
 
-    @OneToMany(mappedBy = "hotelId", fetch=FetchType.EAGER, cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "hotelId", fetch=FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Room> roomCollection;
 
     public Hotel(){
@@ -39,7 +43,7 @@ public class Hotel {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
