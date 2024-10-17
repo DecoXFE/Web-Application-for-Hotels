@@ -24,8 +24,8 @@ import jakarta.persistence.OneToMany;
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="id")
 @NamedQueries({
     @NamedQuery(
-        name = "Room.findRoomByHotelId",
-        query = "SELECT R FROM Room R WHERE R.hotelId.id = ?1 and R.id = ?2"
+        name = "Room.findAvailableRoomsInDateRangeByHotelId",
+        query = "SELECT R FROM Room R WHERE R.hotelId.id = ?1 AND R.available = true AND NOT EXISTS(SELECT B FROM Booking B WHERE B.roomId = R AND B.startDate <= ?3 AND B.endDate >= ?2)"
     )
 })
 public class Room {

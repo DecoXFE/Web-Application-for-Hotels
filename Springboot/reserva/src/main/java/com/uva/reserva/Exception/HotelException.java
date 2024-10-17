@@ -1,4 +1,4 @@
-package com.uva.reserva.Exception;
+package com.uva.reserva.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

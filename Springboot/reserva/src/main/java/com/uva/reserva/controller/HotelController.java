@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.uva.reserva.Exception.HotelException;
+import com.uva.reserva.exception.HotelException;
 import com.uva.reserva.model.Hotel;
 import com.uva.reserva.model.Room;
 import com.uva.reserva.repository.HotelRepository;
@@ -76,8 +76,11 @@ public class HotelController {
     // Devuelve los detalles de la habitación con el ID especificado.
     @GetMapping("/{idh}/rooms/{idr}")
     public Optional<Room> getRoomById(@PathVariable Integer idh, @PathVariable Integer idr) {
-        Optional<Room> room = roomRepository.findRoomByHotelId(idh, idr);
+        Optional<Hotel> optionalHotel = hotelRepository.findById(idh);
+        Optional<Room> room;
+        room = roomRepository.findByIdAndHotelId(idr,optionalHotel);
         return room;
+
     }
 
     // Devuelve la lista de las habitaciones disponibles de un hotel, en general,
@@ -87,20 +90,36 @@ public class HotelController {
             @RequestParam(required = false) String startDate,
             @RequestParam(required = false) String endDate) {
         List<Room> rooms;
+        Optional<Hotel> hotel = hotelRepository.findById(id);
         if (startDate != null && endDate != null) {
-            LocalDate start = LocalDate.parse(startDate);
-            LocalDate end = LocalDate.parse(endDate);
-            rooms = hotelRepository.findAvailableRoomsInDateRange(id, start, end);
+            try {
+                LocalDate start = LocalDate.parse(startDate);
+                LocalDate end = LocalDate.parse(endDate);
+                rooms = roomRepository.findAvailableRoomsInDateRangeByHotelId(id, start, end);
+            } catch (Exception e) {
+                throw new HotelException("Formato de fechas incorrectas");
+            }
 
         } else {
-            rooms = hotelRepository.getAvailableRoomCollection(id);
+            rooms = roomRepository.findByHotelIdAndAvailableTrue(hotel);
         }
         return rooms;
     }
 
     // Modifica la disponibilidad de la habitación.
     @PatchMapping("/{id}/rooms")
-    public void updateAvailability(@PathVariable Integer id) {
+    public void updateAvailability(@PathVariable Integer id, @RequestBody List<Room> updatedRooms) {
+        Optional<Hotel> hotel = hotelRepository.findById(id);
+        List<Room> existingRooms = roomRepository.findByHotelId(hotel);
+            updatedRooms.forEach(updatedRoom -> {
+                existingRooms.stream()
+                        .filter(existingRoom -> existingRoom.getId() == updatedRoom.getId())
+                        .findFirst()
+                        .ifPresent(existingRoom -> {
+                            existingRoom.setAvailable(updatedRoom.isAvailable());
+                            roomRepository.save(existingRoom);
+                        });
+            });
     }
 
 }

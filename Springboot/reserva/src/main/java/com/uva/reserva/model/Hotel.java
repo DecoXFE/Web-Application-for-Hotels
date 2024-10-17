@@ -11,22 +11,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.NamedQueries;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 
 @Entity
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="id")
-@NamedQueries({
-    @NamedQuery(
-        name = "Hotel.getAvailableRoomCollection",
-        query = "SELECT R FROM Room R WHERE R.hotelId.id = ?1 AND R.available = true"
-    ),
-    @NamedQuery(
-        name = "Hotel.findAvailableRoomsInDateRange",
-        query = "SELECT R FROM Room R WHERE R.hotelId.id = ?1 AND R.available = true AND NOT EXISTS(SELECT B FROM Booking B WHERE B.roomId = R AND B.startDate <= ?3 AND B.endDate >= ?2)"
-    )
-})
 public class Hotel {
     @Id
     @GeneratedValue
