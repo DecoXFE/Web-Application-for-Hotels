@@ -2,6 +2,9 @@ package com.uva.reserva.model;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -12,11 +15,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="id")
 public class Booking {
     @Id
     @GeneratedValue
     @Basic(optional = false)
-    private long id;
+    private Integer id;
 
     @Basic(optional = false)
     private LocalDate startDate;
@@ -25,11 +29,11 @@ public class Booking {
     private LocalDate endDate;
 
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.MERGE)
+    @ManyToOne(optional = false, fetch=FetchType.EAGER, cascade=CascadeType.MERGE)
     private User userId;
 
     @JoinColumn(name = "room_id", referencedColumnName = "id")
-    @ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.MERGE)
+    @ManyToOne(optional = false, fetch=FetchType.EAGER, cascade=CascadeType.MERGE)
     private Room roomId;
 
     public Booking(){
@@ -47,7 +51,7 @@ public class Booking {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
