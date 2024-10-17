@@ -8,26 +8,26 @@ import com.uva.reserva.model.User;
 import com.uva.reserva.model.UserStatus;
 import com.uva.reserva.repository.UserRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
 @RestController
 @RequestMapping("/RoomBooking/users")
 public class UserController {
-    
+
     private final UserRepository repository;
 
-    public UserController(UserRepository repository){
+    public UserController(UserRepository repository) {
         this.repository = repository;
     }
 
@@ -56,22 +56,62 @@ public class UserController {
 
     // Modifica los datos de un usuario (nombre, email).
     @PutMapping("/{id}")
-    public void putUser(@RequestBody User newUser, @PathVariable Integer id) {
-        Optional<User> ExistingUser = repository.findById(id);
-
-        if (ExistingUser.isPresent()){
-            User baseUser = ExistingUser.get();
-            baseUser.setName(newUser.getName());
-            baseUser.setEmail(newUser.getEmail());
-            repository.save(baseUser);
-        } else{
-            throw new UserException("No existe el usuario a modificar.");
-        }       
+    public void putUser(@RequestBody User userDetails, @PathVariable Integer id) {
+        Optional<User> existingUser = repository.findById(id);
+        User baseUser = existingUser.get();
+        baseUser.setName(userDetails.getName());
+        baseUser.setEmail(userDetails.getEmail());
+        repository.save(baseUser);
     }
 
-    // Método para eliminar un usuario
+    // Elimina un usuario y sus reservas asociadas.
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Integer id) {
         repository.deleteById(id);
+    }
+
+    private long getActiveBookings(User user) {
+        return user.getBookingCollection()
+                .stream()
+                .filter(booking -> booking.getStartDate().isBefore(LocalDate.now()) &&
+                        booking.getEndDate().isAfter(LocalDate.now()))
+                .count();
+
+    }
+
+    // Modifica el estado de un usuario (status) de forma consistente con sus
+    // reservas.
+    @PatchMapping("/{id}")
+    public void patchUser(@RequestBody User userDetails, @PathVariable Integer id) {
+        Optional<User> existingUser = repository.findById(id);
+        User baseUser = existingUser.get();
+        switch (userDetails.getStatus()) {
+            case NOBOOKINGS:
+                if (baseUser.getBookingCollection().isEmpty()) {
+                    baseUser.setStatus(UserStatus.NOBOOKINGS);
+                    repository.save(baseUser);
+                } else {
+                    throw new UserException("Existen reservas para este usuario.");
+                }
+                break;
+            case WITHACTIVEBOOKINGS:
+                if (getActiveBookings(baseUser) > 0) {
+                    baseUser.setStatus(UserStatus.WITHACTIVEBOOKINGS);
+                    repository.save(baseUser);
+                } else {
+                    throw new UserException("No existen reservas activas en este momento para este usuario.");
+                }
+                break;
+            case WITHINACTIVEBOOKINGS:
+                if (getActiveBookings(baseUser) == 0 && !baseUser.getBookingCollection().isEmpty()) {
+                    baseUser.setStatus(UserStatus.WITHINACTIVEBOOKINGS);
+                    repository.save(baseUser);
+                } else {
+                    throw new UserException("No existen reservas inactivas para este usuario en este momento.");
+                }
+                break;
+            default:
+                break;
+        }
     }
 }
