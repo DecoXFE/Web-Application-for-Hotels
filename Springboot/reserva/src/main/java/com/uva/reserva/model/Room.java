@@ -21,41 +21,37 @@ import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 
 @Entity
-@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @NamedQueries({
-    @NamedQuery(
-        name = "Room.findAvailableRoomsInDateRangeByHotelId",
-        query = "SELECT R FROM Room R WHERE R.hotelId.id = ?1 AND R.available = true AND NOT EXISTS(SELECT B FROM Booking B WHERE B.roomId = R AND B.startDate <= ?3 AND B.endDate >= ?2)"
-    )
+        @NamedQuery(name = "Room.findAvailableRoomsInDateRangeByHotelId", query = "SELECT R FROM Room R WHERE R.hotelId.id = ?1 AND R.available = true AND NOT EXISTS(SELECT B FROM Booking B WHERE B.roomId = R AND B.startDate <= ?3 AND B.endDate >= ?2)")
 })
-/*
- TODO: Revisar optionals
- TODO: Revisar CascadeType
- */
+
+// TODO: Revisar optionals
+// TODO: Revisar CascadeType
 public class Room {
     @Id
     @GeneratedValue
     @Basic(optional = false)
     private Integer id;
-    
+
     @Basic(optional = false)
     private String roomNumber;
-    
+
     @Basic(optional = false)
     private @Enumerated(EnumType.STRING) RoomType roomType;
-    
+
     @Basic(optional = false)
     private boolean available;
 
-    @OneToMany(mappedBy = "roomId", fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "roomId", fetch = FetchType.EAGER)
     private List<Booking> bookingCollection;
 
     @JoinColumn(name = "hotel_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch=FetchType.EAGER, cascade=CascadeType.MERGE)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JsonIgnore
     private Hotel hotelId;
 
-    public Room(){
+    public Room() {
 
     }
 

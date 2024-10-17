@@ -14,11 +14,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
 @Entity
-@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="id")
-/*
- TODO: Revisar optionals
- TODO: Revisar CascadeType
- */
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+
+// TODO: Revisar optionals
+// TODO: Revisar CascadeType
 public class Hotel {
     @Id
     @GeneratedValue
@@ -27,14 +26,14 @@ public class Hotel {
 
     @Basic(optional = false)
     private String name;
-    
+
     @Basic(optional = false)
     private Address address;
 
-    @OneToMany(mappedBy = "hotelId", fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "hotelId", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Room> roomCollection;
 
-    public Hotel(){
+    public Hotel() {
 
     }
 

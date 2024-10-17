@@ -16,35 +16,34 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
 @Entity
-@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="id")
-/*
- TODO: Revisar optionals
- TODO: Revisar CascadeType
- */
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+
+// TODO: Revisar optionals
+// TODO: Revisar CascadeType
 public class User {
     @Id
     @GeneratedValue
     @Basic(optional = false)
     private long id;
-    
+
     @Basic(optional = false)
     private String name;
-    
+
     @Basic(optional = false)
     @Column(unique = true)
     private String email;
-    
+
     @Basic(optional = false)
     private @Enumerated(EnumType.STRING) UserStatus status;
 
-    @OneToMany(mappedBy = "userId", fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "userId", fetch = FetchType.EAGER)
     private List<Booking> bookingCollection;
 
-    public User(){
+    public User() {
 
     }
 
-    public User(String name, String email, UserStatus status){
+    public User(String name, String email, UserStatus status) {
         this.name = name;
         this.email = email;
         this.status = status;

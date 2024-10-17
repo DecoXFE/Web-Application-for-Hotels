@@ -16,11 +16,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="id")
-/*
- TODO: Revisar optionals
- TODO: Revisar CascadeType
- */
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+// TODO: Revisar optionals
+// TODO: Revisar CascadeType
 public class Booking {
     @Id
     @GeneratedValue
@@ -29,21 +27,21 @@ public class Booking {
 
     @Basic(optional = false)
     private LocalDate startDate;
-    
+
     @Basic(optional = false)
     private LocalDate endDate;
 
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch=FetchType.EAGER, cascade=CascadeType.MERGE)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JsonIgnore
     private User userId;
 
     @JoinColumn(name = "room_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch=FetchType.EAGER, cascade=CascadeType.MERGE)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JsonIgnore
     private Room roomId;
 
-    public Booking(){
+    public Booking() {
 
     }
 
