@@ -3,6 +3,7 @@ package com.uva.reserva.model;
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.Basic;
@@ -30,10 +31,12 @@ public class Booking {
 
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch=FetchType.EAGER, cascade=CascadeType.MERGE)
+    @JsonIgnore
     private User userId;
 
     @JoinColumn(name = "room_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch=FetchType.EAGER, cascade=CascadeType.MERGE)
+    @JsonIgnore
     private Room roomId;
 
     public Booking(){
