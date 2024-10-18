@@ -77,4 +77,12 @@ public class BookingController {
     public void deleteBooking(@PathVariable Integer id) {
         bookingRepository.deleteById(id);
     }
+
+    //Devuelve los detalles de una reserva.
+    @GetMapping("/{id}")
+    public Optional<Booking> getBookingInfo(@PathVariable Integer id) {
+        Optional<Booking> booking = bookingRepository.findById(id);
+        return booking;
+    }
+    
 }
