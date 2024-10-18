@@ -33,8 +33,8 @@ Welcome to the Hotel Booking Web App project! This is a full-featured web applic
 # Setup & Installation 🚀
 1. **Clone the repository:**
 ```bash
-git clone https://github.com/yourusername/hotel-booking-app.git
-cd hotel-booking-app
+git clone https://gitlab.inf.uva.es/diegval/Grupo7DBCS.git
+cd Grupo7DBCS
 ```
 2. **Install dependencies:**
 ```bash
