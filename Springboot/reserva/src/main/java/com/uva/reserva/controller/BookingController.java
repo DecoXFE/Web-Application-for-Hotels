@@ -1,5 +1,6 @@
 package com.uva.reserva.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,21 +40,33 @@ public class BookingController {
 
     // * Crea una nueva reserva de habitacion para un usuario.
     // ? Debería roomId y userId pasarse por URI?
-    // TODO: Comprobar al crear la reserva que la habitación es válida y las fechas también
     @PostMapping()
     public void createBooking(@RequestBody Booking newBooking,
             @RequestParam Integer roomId,
             @RequestParam Integer userId) {
         try {
+
+            if (newBooking.getStartDate().isAfter(newBooking.getEndDate())) {
+                throw new BookingException("Las fechas de la reserva no tienen sentido");
+            }
+
             Optional<User> userOptional = userRepository.findById(userId);
             Optional<Room> roomOptional = roomRepository.findById(roomId);
 
             if (userOptional.isPresent() && roomOptional.isPresent()) {
                 User user = userOptional.get();
                 Room room = roomOptional.get();
-                newBooking.setRoomId(room);
-                newBooking.setUserId(user);
-                bookingRepository.save(newBooking);
+                Integer overlappingBookings = bookingRepository
+                        .findByRoomIdAndStartDateBeforeAndEndDateAfter(room, newBooking.getEndDate(),
+                                newBooking.getStartDate())
+                        .size();
+                if (room.isAvailable() && overlappingBookings == 0) {
+                    newBooking.setRoomId(room);
+                    newBooking.setUserId(user);
+                    bookingRepository.save(newBooking);
+                } else {
+                    throw new BookingException("La habiación no está disponible en esa fecha");
+                }
             }
         } catch (Exception e) {
             throw new BookingException("No se pudo añadir la reserva");
@@ -66,7 +79,9 @@ public class BookingController {
      */
     // TODO: Agregar posibilidad para buscar por las 3 combinaciones
     @GetMapping()
-    public List<Booking> findBookings(@RequestParam Integer roomId) {
+    public List<Booking> findBookings(@RequestParam Integer roomId, 
+    @RequestParam LocalDate startDate,
+    @RequestParam LocalDate endDate) {
         Optional<Room> room = roomRepository.findById(roomId);
         List<Booking> bookings = bookingRepository.findByRoomId(room);
         return bookings;
