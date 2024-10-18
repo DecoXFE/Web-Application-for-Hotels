@@ -14,4 +14,6 @@ import com.uva.reserva.model.Room;
 public interface BookingRepository extends JpaRepository<Booking, Integer> {
     List<Booking> findByRoomId(Optional<Room> roomId);
     List<Booking> findByRoomIdAndStartDateBeforeAndEndDateAfter(Room roomId, LocalDate endDate, LocalDate startDate);
+    List<Booking> findByStartDateAfterAndEndDateBefore(LocalDate startDate, LocalDate endDate);
+    List<Booking> findByRoomIdAndStartDateAfterAndEndDateBefore(Optional<Room> roomId, LocalDate startDate, LocalDate endDate);
 }

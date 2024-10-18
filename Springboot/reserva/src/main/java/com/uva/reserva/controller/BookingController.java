@@ -77,20 +77,27 @@ public class BookingController {
      * Devuelve la lista de las reservas en unas fechas y/o para una habitación
      * dada (con query en la URI).
      */
-    // TODO: Agregar posibilidad para buscar por las 3 combinaciones
+    // ? Añadir que pueda buscarse solo desde inicio o solo desde fin
     @GetMapping()
-    public List<Booking> findBookings(@RequestParam (required = false) Integer roomId, 
-    @RequestParam (required = false) LocalDate startDate,
-    @RequestParam (required = false) LocalDate endDate) {
-        if (roomId != null && startDate == null && endDate == null){
+    public List<Booking> findBookings(@RequestParam(required = false) Integer roomId,
+            @RequestParam(required = false) LocalDate startDate,
+            @RequestParam(required = false) LocalDate endDate) {
+        if (roomId != null && (startDate == null || endDate == null)) {
             Optional<Room> room = roomRepository.findById(roomId);
             List<Booking> bookings = bookingRepository.findByRoomId(room);
             return bookings;
-        } else  if (roomId == null && startDate != null && endDate != null){
-            return null;
-        } else if (roomId != null && startDate != null && endDate != null){
-            return null;
-        } else throw new BookingException("Error en los argumentos");
+        } else if (roomId == null && startDate != null && endDate != null) {
+            List<Booking> bookings = bookingRepository.findByStartDateAfterAndEndDateBefore(startDate.plusDays(-1),
+                    endDate.plusDays(1));
+            return bookings;
+        } else if (roomId != null && startDate != null && endDate != null) {
+            Optional<Room> room = roomRepository.findById(roomId);
+            List<Booking> bookings = bookingRepository.findByRoomIdAndStartDateAfterAndEndDateBefore(room,
+                    startDate.plusDays(-1), endDate.plusDays(1));
+            return bookings;
+
+        } else
+            throw new BookingException("Error en los argumentos");
     }
 
     // Elimina una reserva existente.
@@ -99,11 +106,11 @@ public class BookingController {
         bookingRepository.deleteById(id);
     }
 
-    //Devuelve los detalles de una reserva.
+    // Devuelve los detalles de una reserva.
     @GetMapping("/{id}")
     public Optional<Booking> getBookingInfo(@PathVariable Integer id) {
         Optional<Booking> booking = bookingRepository.findById(id);
         return booking;
     }
-    
+
 }
