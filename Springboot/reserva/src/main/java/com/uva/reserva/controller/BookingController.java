@@ -79,12 +79,18 @@ public class BookingController {
      */
     // TODO: Agregar posibilidad para buscar por las 3 combinaciones
     @GetMapping()
-    public List<Booking> findBookings(@RequestParam Integer roomId, 
-    @RequestParam LocalDate startDate,
-    @RequestParam LocalDate endDate) {
-        Optional<Room> room = roomRepository.findById(roomId);
-        List<Booking> bookings = bookingRepository.findByRoomId(room);
-        return bookings;
+    public List<Booking> findBookings(@RequestParam (required = false) Integer roomId, 
+    @RequestParam (required = false) LocalDate startDate,
+    @RequestParam (required = false) LocalDate endDate) {
+        if (roomId != null && startDate == null && endDate == null){
+            Optional<Room> room = roomRepository.findById(roomId);
+            List<Booking> bookings = bookingRepository.findByRoomId(room);
+            return bookings;
+        } else  if (roomId == null && startDate != null && endDate != null){
+            return null;
+        } else if (roomId != null && startDate != null && endDate != null){
+            return null;
+        } else throw new BookingException("Error en los argumentos");
     }
 
     // Elimina una reserva existente.
