@@ -1,27 +1,50 @@
-# Angular
+<p align="center">
+<img src="Angular/public/favicon.ico" width="100"/>
+</p>
+<p align="center">
+<a href="https://wakatime.com/badge/user/6f669f57-e841-48c3-bf35-b6ab4881628f/project/4b59dc5d-5fab-48dd-9dfa-9199a748cc4c"><img src="https://wakatime.com/badge/user/6f669f57-e841-48c3-bf35-b6ab4881628f/project/4b59dc5d-5fab-48dd-9dfa-9199a748cc4c.svg" alt="wakatime"></a>
+</p>
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.7.
+# SmartBooking Web App 🏨
+Welcome to the Hotel Booking Web App project! This is a full-featured web application built using Angular that allows users to search, book, and manage hotel room reservations with ease.
 
-## Development server
+<br>
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+# Features ✨
+- Room Search: Users can search for available rooms based on hotel and date interval.
+- Room Details: Detailed information about each room.
+- Booking Management: Users can make, view, and manage their reservations.
+- User Authentication: Sign-up, login, and secure session management for users.
+- User Listing: user listing with the option to filter by current state.
+- Responsive Design: Fully responsive and optimized for mobile devices.
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+<br>
 
-## Build
+# Technologies Used 🛠️
+- Frontend: Angular (v18.2.7) & Nodejs (v22.9.0)
+- Routing: Angular Router
+- Styling: CSS for custom styles, Bootstrap (or other CSS framework) for responsive layout
+- Backend: SpringBoot
+- Database (optional): MySQL (v8.0.39)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+<br>
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+# Setup & Installation 🚀
+1. **Clone the repository:**
+```bash
+git clone https://github.com/yourusername/hotel-booking-app.git
+cd hotel-booking-app
+```
+2. **Install dependencies:**
+```bash
+npm install
+```
+3. **Run the application:**
+```bash
+ng serve
+```
+3. **Open your browser and navigate to:**
+```bash
+http://localhost:4200
+```
