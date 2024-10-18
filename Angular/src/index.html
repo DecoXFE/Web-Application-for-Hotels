@@ -1,13 +1,29 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
-  <title>Angular</title>
+  <title>SmartBooking</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
+
 <body>
+  <nav class="navbar bg-body-tertiary fixed-top" data-bs-theme="dark">
+    <div class="container">
+      <a class="navbar-brand mb-0 h1" href="#">
+        <img src="/favicon.ico" alt="Logo" width="30" height="30" class="d-inline-block align-text-top me-3">
+        SmartBooking
+      </a>
+      <div> 
+        <button class="btn btn-primary credentials me-3" type="button">Log In</button>
+        <button class="btn btn-primary credentials" type="button">Sign In</button>
+      </div>
+
+    </div>
+  </nav>
   <app-root></app-root>
 </body>
+
 </html>
