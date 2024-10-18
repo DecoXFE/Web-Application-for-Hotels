@@ -1,5 +1,5 @@
 <p align="center">
-<img src="Angular/public/favicon.ico" width="100"/>
+<img src="https://i.ibb.co/Fq8SXJd/RBDD9VN.png" alt="RBDD9VN" width="100">
 </p>
 <p align="center">
 <a href="https://wakatime.com/badge/user/6f669f57-e841-48c3-bf35-b6ab4881628f/project/4b59dc5d-5fab-48dd-9dfa-9199a748cc4c"><img src="https://wakatime.com/badge/user/6f669f57-e841-48c3-bf35-b6ab4881628f/project/4b59dc5d-5fab-48dd-9dfa-9199a748cc4c.svg" alt="wakatime"></a>
