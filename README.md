@@ -38,6 +38,7 @@ cd Grupo7DBCS
 ```
 2. **Install dependencies:**
 ```bash
+cd Angular
 npm install
 ```
 3. **Run the application:**

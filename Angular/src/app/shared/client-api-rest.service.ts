@@ -25,7 +25,7 @@ export class ClienteApiRestService {
   * Gets all Users
   */
   getUsers() : Observable<HttpResponse<any>>{
-    console.log("Entrando en createUser");
+    console.log("Entrando en getUsers");
     let url = ClienteApiRestService.BASE_URI_USERS;
     return this.http.get<User[]>(url, {observe: 'response'});
   }

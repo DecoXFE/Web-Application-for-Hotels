@@ -7,10 +7,10 @@ import { ClienteApiRestService } from '../shared/client-api-rest.service';
   selector: 'app-list-users-component',
   standalone: true,
   imports: [NgFor],
-  templateUrl: './list-users-component.component.html',
-  styleUrl: './list-users-component.component.css'
+  templateUrl: './list-users.component.html',
+  styleUrl: './list-users.component.css'
 })
-export class ListUsersComponentComponent implements OnInit {
+export class ListUsersComponent implements OnInit {
   users!: User[];
 
 
@@ -31,3 +31,4 @@ export class ListUsersComponentComponent implements OnInit {
   });
   }
 }
+
