@@ -17,7 +17,6 @@ body {
   }
 
 .btn-primary{
-    width: 80px;
     --bs-btn-bg:#794cf8;
     --bs-btn-font-weight:600;
     --bs-btn-hover-bg: #7a4cf8d0;
@@ -25,4 +24,13 @@ body {
     --bs-btn-hover-border-color: var(--bs-btn-bg);
     --bs-btn-active-bg: #974cf8;
     --bs-btn-active-border-color:var(--bs-btn-active-bg);
+}
+
+.form-control:focus {
+  border-color: #794cf8;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #7a4cf869;
+}
+
+.credentials{
+  width: 80px;
 }
