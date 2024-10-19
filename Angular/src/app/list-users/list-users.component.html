@@ -3,10 +3,21 @@
         <div class="col-sm-12">
             <table class="table table-striped table-hover table-bordered">
                 <thead>
-                    <tr>
+                    <tr class="align-middle">
                         <th>Name</th>
                         <th>Email</th>
-                        <th>Status</th>
+                        <th>
+                            <div class="status-header">
+                                Status
+                                <select class="form-select form-select-sm 
+                            selectStatus ms-6" id="statusFilter" 
+                            (change)="getUsers()" [(ngModel)]="statusFilter">
+                                    <option value="NOBOOKINGS">None</option>
+                                    <option value="WITHACTIVEBOOKINGS">Active</option>
+                                    <option value="WITHINACTIVEBOOKINGS">Inactive</option>
+                                </select>
+                            </div>
+                        </th>
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
