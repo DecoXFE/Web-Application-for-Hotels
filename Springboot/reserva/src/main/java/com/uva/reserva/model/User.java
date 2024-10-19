@@ -24,7 +24,7 @@ public class User {
     @Id
     @GeneratedValue
     @Basic(optional = false)
-    private long id;
+    private Integer id;
 
     @Basic(optional = false)
     private String name;
@@ -49,11 +49,11 @@ public class User {
         this.status = status;
     }
 
-    public long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

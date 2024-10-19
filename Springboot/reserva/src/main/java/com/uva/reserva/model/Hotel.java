@@ -37,12 +37,13 @@ public class Hotel {
 
     }
 
-    public Hotel(String name, Address address) {
+    public Hotel(String name, Address address, List<Room> roomCollection) {
         this.name = name;
         this.address = address;
+        this.roomCollection = roomCollection;
     }
 
-    public long getId() {
+    public Integer getId() {
         return id;
     }
 

@@ -52,7 +52,7 @@ public class Booking {
         this.roomId = room;
     }
 
-    public long getId() {
+    public Integer getId() {
         return id;
     }
 

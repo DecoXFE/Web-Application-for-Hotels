@@ -1,5 +1,5 @@
 <nav class="navbar navbar-dark navbar-expand-sm bg-body-tertiary fixed-top" data-bs-theme="dark">
-    <div class="container-fluid">
+    <div class="container">
         <a class="navbar-brand mb-0 h1" href="#">
             <img src="/favicon.ico" alt="Logo" width="30" height="30" class="d-inline-block align-text-top me-3">
             SmartBooking
@@ -9,11 +9,11 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="container collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a href="#" class="nav-link active fw-bold">Home</a>
-                </li>
-            </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a href="#" class="nav-link active fw-bold">Home</a>
+                    </li>
+                </ul>
             <div class="ms-auto">
                 <button class="btn btn-primary credentials me-3" type="button" data-bs-toggle="modal"
                     data-bs-target="#logIn">Log In</button>
@@ -54,31 +54,38 @@
     </div>
 </div>
 
-<div class="modal fade" id="signIn" tabindex="-1" aria-labelledby="Sign In" aria-hidden="true" data-bs-backdrop="static">
+<div class="modal fade" id="signIn" tabindex="-1" aria-labelledby="Sign In" aria-hidden="true"
+    data-bs-backdrop="static">
     <div class="modal-dialog credentialsContainer">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Creating new User</h1>
             </div>
             <div class="modal-body">
-                <form>
+                <form (ngSubmit) = "onSignIn()" #signInForm="ngForm">
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name" aria-describedby="nameHelp">
+                        <input name="name" [(ngModel)]="user.name" type="text" class="form-control" id="name" aria-describedby="nameHelp" required>
                         <div id="nameHelp" class="form-text">Currently users doesn't have passwords.</div>
 
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+                        <input name ="email" [(ngModel)]="user.email" type="email" class="form-control" id="email" aria-describedby="emailHelp" required>
                         <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                    <div *ngIf="emailExistsMessage" class="alert alert-danger">
+                        {{ emailExistsMessage }}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" 
+                        [disabled]="!signInForm.form.valid">Create Account</button>
+                        <button type="button" class="btn btn-danger" 
+                        data-bs-dismiss="modal" (click)="onCancelSignIn()">Cancel</button>
                     </div>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Register</button>
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-            </div>
+
         </div>
     </div>
 </div>

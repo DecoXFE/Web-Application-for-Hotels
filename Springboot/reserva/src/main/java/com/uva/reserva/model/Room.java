@@ -62,7 +62,7 @@ public class Room {
         this.hotelId = hotel;
     }
 
-    public long getId() {
+    public Integer getId() {
         return id;
     }
 

@@ -70,6 +70,7 @@ public class UserController {
         repository.deleteById(id);
     }
 
+    //Devuelve una lista con las reservas activas
     private long getActiveBookings(User user) {
         return user.getBookingCollection()
                 .stream()
