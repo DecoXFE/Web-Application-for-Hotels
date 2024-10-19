@@ -13,12 +13,21 @@ export class ClienteApiRestService {
   constructor(private http: HttpClient) { }
 
   /*
-  * USERS
+  * Creates a new user
   */
   createUser(user : User) : Observable<HttpResponse<any>>{
     console.log("Entrando en createUser");
     let url = ClienteApiRestService.BASE_URI_USERS;
     return this.http.post(url,user,{observe: 'response', responseType:'text'})
+  }
+
+  /*
+  * Gets all Users
+  */
+  getUsers() : Observable<HttpResponse<any>>{
+    console.log("Entrando en createUser");
+    let url = ClienteApiRestService.BASE_URI_USERS;
+    return this.http.get<User[]>(url, {observe: 'response'});
   }
 
 }

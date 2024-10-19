@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ClienteApiRestService } from './shared/cliente-api-rest.service';
-import { User } from './shared/user.model';
+import { ClienteApiRestService } from './shared/client-api-rest.service';
+import { Status, User } from './shared/user.model';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
 
@@ -17,7 +17,8 @@ import { NgIf } from '@angular/common';
 export class AppComponent {
   user: User = {
     name: "",
-    email: ""
+    email: "",
+    status: Status.NOBOOKINGS
   };
   emailExistsMessage: string = "";
 
@@ -45,7 +46,8 @@ export class AppComponent {
     this.emailExistsMessage = "";
     this.user = {
       name: '',
-      email: ''
+      email: '',
+      status: Status.NOBOOKINGS
     }
   }
 }
