@@ -12,6 +12,7 @@
                                 <select class="form-select form-select-sm 
                             selectStatus ms-6" id="statusFilter" 
                             (change)="getUsers()" [(ngModel)]="statusFilter">
+                                    <option value="">All</option>     
                                     <option value="NOBOOKINGS">None</option>
                                     <option value="WITHACTIVEBOOKINGS">Active</option>
                                     <option value="WITHINACTIVEBOOKINGS">Inactive</option>

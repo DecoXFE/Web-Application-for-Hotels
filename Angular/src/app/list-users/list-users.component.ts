@@ -26,7 +26,9 @@ export class ListUsersComponent implements OnInit {
     this.clientApiRest.getUsers().subscribe({
       next: (response) => {
           this.users = response.body;
+          if(this.statusFilter!=""){
           this.users = this.users.filter(user => user.status==this.statusFilter);
+      }
       },
       error: (error) => {
           console.error("Error al conseguir los usuarios:", error);
