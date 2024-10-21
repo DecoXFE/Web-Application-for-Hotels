@@ -1,0 +1,26 @@
+<div class="container hotels-table">
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-striped table-hover table-bordered">
+                <thead>
+                    <tr class="align-middle">
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Other Address Info</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    <tr *ngFor="let hotel of hotels">
+                        <td>{{hotel.name}}</td>
+                        <td>{{hotel.address.streetKind}} 
+                            {{hotel.address.streetName}}
+                            {{hotel.address.number}}
+                            {{hotel.address.postCode}}
+                        </td>
+                        <td>{{hotel.address.otherInfo}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
