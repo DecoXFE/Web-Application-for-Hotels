@@ -33,6 +33,10 @@ public class User {
     @Column(unique = true)
     private String email;
 
+    // ! NO NECESARIO PARA PRIMERA ENTREGA
+    @Basic(optional = true)
+    private String password;
+
     @Basic(optional = false)
     private @Enumerated(EnumType.STRING) UserStatus status;
 
@@ -43,10 +47,19 @@ public class User {
 
     }
 
-    public User(String name, String email, UserStatus status) {
+    public User(String name, String email, UserStatus status, String password) {
         this.name = name;
         this.email = email;
         this.status = status;
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Integer getId() {

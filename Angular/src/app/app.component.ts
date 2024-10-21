@@ -33,7 +33,7 @@ export class AppComponent {
       },
       error: (error) => {
           console.error("Error al crear el usuario:", error);
-          this.emailExistsMessage = "Email already exists";
+          this.emailExistsMessage = "Email already exists or is incorrect";
       }
   });
 

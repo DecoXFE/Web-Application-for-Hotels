@@ -38,19 +38,19 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-rest</artifactId>
 		</dependency>
-		<!-- DEPENDENCIA EN CASO DE QUERER USAR MARIADB (ARCH)
+		<!-- DEPENDENCIA EN CASO DE QUERER USAR MARIADB (ARCH)-->
+
 		<dependency>
 			<groupId>org.mariadb.jdbc</groupId>
 			<artifactId>mariadb-java-client</artifactId>
 			<version>3.4.1</version>
-		</dependency>-->
-
-		<!-- USING MYSQL-->
+		</dependency>
+		<!-- USING MYSQL
 		<dependency>
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
-		</dependency>
+		</dependency>-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>

@@ -1,16 +1,10 @@
 package com.uva.reserva.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.uva.reserva.exception.UserException;
-import com.uva.reserva.model.User;
-import com.uva.reserva.model.UserStatus;
-import com.uva.reserva.repository.UserRepository;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,6 +14,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.uva.reserva.exception.UserException;
+import com.uva.reserva.model.User;
+import com.uva.reserva.model.UserStatus;
+import com.uva.reserva.repository.UserRepository;
 
 @RestController
 @RequestMapping("/RoomBooking/users")
@@ -41,8 +42,15 @@ public class UserController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public void newUser(@RequestBody User newUser) {
         try {
-            newUser.setStatus(UserStatus.NOBOOKINGS);
-            repository.save(newUser);
+            String emailRegex = "^[\\w-\\.]+@[\\w-]+\\.[a-z]{2,}$";
+            Pattern pattern = Pattern.compile(emailRegex);
+            Matcher matcher = pattern.matcher(newUser.getEmail());
+            if(matcher.matches()){
+                newUser.setStatus(UserStatus.NOBOOKINGS);
+                repository.save(newUser);
+            }else{
+                throw new UserException("Formato del email incorrecto");
+            }
         } catch (Exception e) {
             throw new UserException("Error al crear el nuevo usuario.");
         }
@@ -70,7 +78,7 @@ public class UserController {
         repository.deleteById(id);
     }
 
-    //Devuelve una lista con las reservas activas
+    // Devuelve una lista con las reservas activas
     private long getActiveBookings(User user) {
         return user.getBookingCollection()
                 .stream()

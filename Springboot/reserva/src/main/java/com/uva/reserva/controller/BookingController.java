@@ -39,7 +39,6 @@ public class BookingController {
     }
 
     // * Crea una nueva reserva de habitacion para un usuario.
-    // ? Debería roomId y userId pasarse por URI?
     @PostMapping()
     public void createBooking(@RequestBody Booking newBooking,
             @RequestParam Integer roomId,
@@ -77,7 +76,6 @@ public class BookingController {
      * Devuelve la lista de las reservas en unas fechas y/o para una habitación
      * dada (con query en la URI).
      */
-    // ? Añadir que pueda buscarse solo desde inicio o solo desde fin
     @GetMapping()
     public List<Booking> findBookings(@RequestParam(required = false) Integer roomId,
             @RequestParam(required = false) LocalDate startDate,
