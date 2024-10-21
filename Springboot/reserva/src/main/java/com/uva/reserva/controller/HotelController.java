@@ -107,19 +107,25 @@ public class HotelController {
     }
 
     // Modifica la disponibilidad de la habitación.
-    @PatchMapping("/{id}/rooms")
-    public void updateAvailability(@PathVariable Integer id, @RequestBody List<Room> updatedRooms) {
-        Optional<Hotel> hotel = hotelRepository.findById(id);
-        List<Room> existingRooms = roomRepository.findByHotelId(hotel);
-            updatedRooms.forEach(updatedRoom -> {
-                existingRooms.stream()
-                        .filter(existingRoom -> existingRoom.getId() == updatedRoom.getId())
-                        .findFirst()
-                        .ifPresent(existingRoom -> {
-                            existingRoom.setAvailable(updatedRoom.isAvailable());
-                            roomRepository.save(existingRoom);
-                        });
-            });
+    // ? Comprobación de HotelId
+    @PatchMapping("/{idh}/rooms/{idr}")
+    public void updateAvailability(@PathVariable Integer idh, @PathVariable Integer idr
+    ) {
+        try{
+            Optional<Room> optionalRoom = roomRepository.findById(idr);
+            Room room = optionalRoom.get();
+
+            if(room.getHotelId().getId() == idh){
+                throw new HotelException("Esa habitación no corresponde a ese hotel");
+            }
+
+            room.setAvailable(!room.isAvailable());
+            roomRepository.save(room);
+        }
+        catch(Exception e){
+            throw new HotelException("No existe esa habitación");
+        }
+
     }
 
 }
