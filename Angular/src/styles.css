@@ -18,7 +18,6 @@ body {
 
 .btn-primary{
     --bs-btn-bg:#794cf8;
-    --bs-btn-font-weight:600;
     --bs-btn-hover-bg: #7a4cf8d0;
     --bs-btn-border-color: #var(--bs-btn-bg);
     --bs-btn-hover-border-color: var(--bs-btn-bg);

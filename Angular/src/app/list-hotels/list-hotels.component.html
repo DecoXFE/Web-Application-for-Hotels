@@ -7,6 +7,7 @@
                         <th>Name</th>
                         <th>Address</th>
                         <th>Other Address Info</th>
+                        <th class="actions">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
@@ -18,6 +19,10 @@
                             {{hotel.address.postCode}}
                         </td>
                         <td>{{hotel.address.otherInfo}}</td>
+                        <td>
+                                <a class="btn btn-primary me-3 actionButton">Edit</a>
+                                <a class="btn btn-danger actionButton">Delete</a>  
+                        </td>
                     </tr>
                 </tbody>
             </table>
