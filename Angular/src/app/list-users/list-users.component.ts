@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class ListUsersComponent implements OnInit {
   users!: User[];
-  statusFilter = "NOBOOKINGS";
+  statusFilter = "";
 
 
   constructor(private clientApiRest: ClienteApiRestService) { }
