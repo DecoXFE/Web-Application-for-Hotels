@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, RouterModule } from '@angular/router';
 import { ClienteApiRestService } from './shared/client-api-rest.service';
 import { Status, User } from './shared/user.model';
 import { FormsModule } from '@angular/forms';
@@ -8,7 +8,7 @@ import { NgIf } from '@angular/common';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, FormsModule, NgIf],
+  imports: [RouterOutlet, FormsModule, NgIf, RouterModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
