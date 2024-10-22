@@ -4,22 +4,22 @@
     <form (ngSubmit)="onNewBooking()" #bookingForm="ngForm">
 
         <label for="email" class="form-label">Input user email</label>
-        <input name="email" type="email" class="form-control mb-2" id="email" placeholder="name@example.com" required ngModel>
+        <input name="email" type="email" class="form-control mb-2" id="email" placeholder="name@example.com" required [(ngModel)]="userEmail">
        
         <div class="row mb-2">
             <div class="col-md-6 mb-md-0 mb-2">
                 <label for="startDate" class="form-label">Start date</label>
-                <input name="startDate" type="date" id="startDate" class="form-control" required ngModel>
+                <input name="startDate" type="date" id="startDate" class="form-control" required [(ngModel)]="booking.startDate">
             </div>
             <div class="col-md-6">
                 <label for="endDate" class="form-label ms-auto">End date</label>
-                <input name="endDate" type="date" id="endDate" class="form-control" required ngModel>
+                <input name="endDate" type="date" id="endDate" class="form-control" required [(ngModel)]="booking.endDate">
             </div>
         </div>
        
 
         <label for="roomType" class="form-label">Select rooom type</label>
-        <select name="roomType" id="roomType" class="form-select" aria-label="Select the type of room desired" required ngModel>
+        <select name="roomType" id="roomType" class="form-select" aria-label="Select the type of room desired" required [(ngModel)]="roomType">
             <option value="SINGLE">Single</option>
             <option value="DOUBLE">Double</option>
             <option value="SUITE">Suite</option>
@@ -30,5 +30,6 @@
         </div>
 
         <div *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</div>   
+        <div *ngIf="successMessage" class="alert alert-success">{{successMessage}}</div>   
     </form>
 </div>
