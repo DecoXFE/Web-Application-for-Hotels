@@ -7,6 +7,7 @@ export interface Address{
 }
 
 export interface Hotel{
+    id : Number;
     name : String;
     address : Address;
 }

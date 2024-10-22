@@ -20,7 +20,7 @@ export class ClienteApiRestService {
   createUser(user : User) : Observable<HttpResponse<any>>{
     console.log("Entrando en createUser");
     let url = ClienteApiRestService.BASE_URI_USERS;
-    return this.http.post(url,user,{observe: 'response', responseType:'text'})
+    return this.http.post(url, user, {observe: 'response', responseType:'text'})
   }
 
   /*
@@ -41,4 +41,9 @@ export class ClienteApiRestService {
       return this.http.get<Hotel[]>(url, {observe: 'response'});
     }
 
+    deleteHotel( id : Number) : Observable<HttpResponse<any>>{
+      console.log("Entrando en deleteHotel");
+      let url = ClienteApiRestService.BASE_URI_HOTELS + "/" + id;
+      return this.http.delete(url, { observe: 'response', responseType: 'text'});
+    }
 }

@@ -30,4 +30,15 @@ export class ListHotelsComponent {
       }
     });
   }
+
+  deleteHotel(id: Number) {
+    this.clientApiRest.deleteHotel(id).subscribe({
+      next: (response) => {
+        this.hotels = this.hotels.filter(hotel => hotel.id !== id);
+      },
+      error: (error) => {
+        console.error("Error al borrar el hotel:", error);
+      }
+    })
+  }
 }

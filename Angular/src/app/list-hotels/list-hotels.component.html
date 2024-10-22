@@ -21,7 +21,7 @@
                         <td>{{hotel.address.otherInfo}}</td>
                         <td>
                                 <a class="btn btn-primary me-3 actionButton">Edit</a>
-                                <a class="btn btn-danger actionButton">Delete</a>  
+                                <a class="btn btn-danger actionButton" (click)="deleteHotel(hotel.id)">Delete</a>
                         </td>
                     </tr>
                 </tbody>
