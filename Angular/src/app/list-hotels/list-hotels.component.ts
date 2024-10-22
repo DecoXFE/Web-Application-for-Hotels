@@ -13,6 +13,7 @@ import { ClienteApiRestService } from '../shared/client-api-rest.service';
 })
 export class ListHotelsComponent {
   hotels!: Hotel[];
+  selectedHotelId: Number = -1;
 
   constructor(private clientApiRest: ClienteApiRestService) { }
 
@@ -31,10 +32,14 @@ export class ListHotelsComponent {
     });
   }
 
-  deleteHotel(id: Number) {
-    this.clientApiRest.deleteHotel(id).subscribe({
+  openDeleteModal(id: Number){
+    this.selectedHotelId = id;
+  }
+
+  deleteHotel() {
+    this.clientApiRest.deleteHotel(this.selectedHotelId).subscribe({
       next: (response) => {
-        this.hotels = this.hotels.filter(hotel => hotel.id !== id);
+        this.hotels = this.hotels.filter(hotel => hotel.id !== this.selectedHotelId);
       },
       error: (error) => {
         console.error("Error al borrar el hotel:", error);
