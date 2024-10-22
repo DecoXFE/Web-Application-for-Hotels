@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.uva.reserva.exception.BookingException;
 import com.uva.reserva.model.Booking;
 import com.uva.reserva.model.Room;
+import com.uva.reserva.model.RoomType;
 import com.uva.reserva.model.User;
 import com.uva.reserva.repository.BookingRepository;
 import com.uva.reserva.repository.RoomRepository;
@@ -41,34 +42,40 @@ public class BookingController {
     // * Crea una nueva reserva de habitacion para un usuario.
     @PostMapping()
     public void createBooking(@RequestBody Booking newBooking,
-            @RequestParam Integer roomId,
-            @RequestParam Integer userId) {
-        try {
+            @RequestParam RoomType roomType,
+            @RequestParam String userEmail) {
 
-            if (newBooking.getStartDate().isAfter(newBooking.getEndDate())) {
-                throw new BookingException("Las fechas de la reserva no tienen sentido");
-            }
+        if (newBooking.getStartDate().isAfter(newBooking.getEndDate())) {
+            throw new BookingException("End date is before start date");
+        }
 
-            Optional<User> userOptional = userRepository.findById(userId);
-            Optional<Room> roomOptional = roomRepository.findById(roomId);
+        if(newBooking.getStartDate().isBefore(LocalDate.now())){
+            throw new BookingException("Start date has already passed");
+        }
 
-            if (userOptional.isPresent() && roomOptional.isPresent()) {
-                User user = userOptional.get();
-                Room room = roomOptional.get();
-                Integer overlappingBookings = bookingRepository
-                        .findByRoomIdAndStartDateBeforeAndEndDateAfter(room, newBooking.getEndDate(),
-                                newBooking.getStartDate())
-                        .size();
-                if (room.isAvailable() && overlappingBookings == 0) {
-                    newBooking.setRoomId(room);
-                    newBooking.setUserId(user);
-                    bookingRepository.save(newBooking);
-                } else {
-                    throw new BookingException("La habiación no está disponible en esa fecha");
-                }
-            }
-        } catch (Exception e) {
-            throw new BookingException("No se pudo añadir la reserva");
+        Optional<User> userOptional = userRepository.findByEmail(userEmail);
+        Optional<Room> roomOptional = roomRepository.findByRoomType(roomType);
+
+        if (!userOptional.isPresent()) {
+            throw new BookingException("Email doesn't exist");
+        }
+
+        if (!roomOptional.isPresent()) {
+            throw new BookingException("No rooms available for the room type selected");
+        }
+
+        User user = userOptional.get();
+        Room room = roomOptional.get();
+        Integer overlappingBookings = bookingRepository
+                .findByRoomIdAndStartDateBeforeAndEndDateAfter(room, newBooking.getEndDate(),
+                        newBooking.getStartDate())
+                .size();
+        if (room.isAvailable() && overlappingBookings == 0) {
+            newBooking.setRoomId(room);
+            newBooking.setUserId(user);
+            bookingRepository.save(newBooking);
+        } else {
+            throw new BookingException("There's no room available in that range");
         }
     }
 
