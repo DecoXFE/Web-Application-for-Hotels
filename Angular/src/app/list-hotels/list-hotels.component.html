@@ -20,7 +20,7 @@
             </td>
             <td>{{hotel.address.otherInfo}}</td>
             <td>
-              <a routerLink="/rooms" class="btn btn-primary me-3 actionButton">Rooms</a>
+              <a class="btn btn-primary me-3 actionButton" [routerLink] ="['/hotels', hotel.id,'rooms']" >Rooms</a>
               <button type="button" class="btn btn-danger actionButton" data-bs-toggle="modal"
                 (click)="openDeleteModal(hotel.id)" data-bs-target="#deleteConfirm">
                 Delete

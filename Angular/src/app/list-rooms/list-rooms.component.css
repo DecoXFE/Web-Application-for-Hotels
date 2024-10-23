@@ -1,0 +1,23 @@
+.rooms-table{
+    margin-top:100px;
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0px 0px 8px 0px #7a4cf869; /* Sombra */
+    padding:0;
+}
+.table{
+    margin:0;
+}
+
+.table-group-divider{
+    color:#7a4cf8d0;
+}
+
+.selectStatus{
+    max-width: 95px;
+}
+
+.status-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

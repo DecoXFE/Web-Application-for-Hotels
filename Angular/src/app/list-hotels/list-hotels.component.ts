@@ -3,11 +3,12 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Hotel } from '../shared/hotel.model';
 import { ClienteApiRestService } from '../shared/client-api-rest.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-list-hotels',
   standalone: true,
-  imports: [NgFor, FormsModule],
+  imports: [NgFor, FormsModule, RouterLink],
   templateUrl: './list-hotels.component.html',
   styleUrl: './list-hotels.component.css'
 })

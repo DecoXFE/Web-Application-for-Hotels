@@ -7,5 +7,5 @@ export enum RoomType{
 export interface Room{
     roomNumber : String;
     roomType : RoomType;
-    avalible : boolean;
+    available : boolean;
 }
