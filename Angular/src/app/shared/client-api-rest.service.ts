@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { User } from './user.model';
 import { Observable } from 'rxjs';
 import { Hotel } from './hotel.model';
+import { Room } from './room.model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +33,7 @@ export class ClienteApiRestService {
     return this.http.get<User[]>(url, {observe: 'response'});
   }
 
-    /*
+  /*
   * Gets all Hotels
   */
     getHotels() : Observable<HttpResponse<any>>{
@@ -41,9 +42,21 @@ export class ClienteApiRestService {
       return this.http.get<Hotel[]>(url, {observe: 'response'});
     }
 
-    deleteHotel( id : Number) : Observable<HttpResponse<any>>{
+  /*
+  * Deletes a hotel
+  */
+    deleteHotel(id : Number) : Observable<HttpResponse<any>>{
       console.log("Entrando en deleteHotel");
       let url = ClienteApiRestService.BASE_URI_HOTELS + "/" + id;
       return this.http.delete(url, { observe: 'response', responseType: 'text'});
+    }
+
+    /*
+    * Gets all avalible rooms of a hotel
+    */
+    getRooms(id : Number) : Observable<HttpResponse<any>>{
+      console.log("Entrando en getHotels");
+      let url = ClienteApiRestService.BASE_URI_HOTELS + "/" + id + "/rooms";
+      return this.http.get<Room[]>(url, {observe: 'response'});
     }
 }
