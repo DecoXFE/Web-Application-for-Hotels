@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { User } from './user.model';
 import { Observable } from 'rxjs';
 import { Hotel } from './hotel.model';
+import { Room } from './room.model';
 import { Booking } from './booking.model';
 import { RoomType } from './room.model';
 
@@ -66,4 +67,30 @@ export class ClienteApiRestService {
     return this.http.post(url, booking, { observe: 'response', responseType: 'text' })
   }
 
+    /*
+    * Gets all avalible rooms of a hotel
+    */
+    getRooms(id : Number) : Observable<HttpResponse<any>>{
+      console.log("Entrando en getHotels");
+      let url = ClienteApiRestService.BASE_URI_HOTELS + "/" + id + "/rooms?available=false";
+      return this.http.get<Room[]>(url, {observe: 'response'});
+    }
+
+    /*
+    * Creates a new hotel
+    */
+    createHotel(hotel : Hotel) : Observable<HttpResponse<any>>{
+      console.log("Entrando en createHotel");
+      let url = ClienteApiRestService.BASE_URI_HOTELS;
+      return this.http.post(url, hotel, {observe: 'response', responseType:'text'})
+    }
+
+    /*
+    * Edits the availability of a room
+    */
+    editRoomAvailability(idh : Number, idr : Number) : Observable<any>{
+      console.log("Entrando en editRoomAvailability");
+      let url = ClienteApiRestService.BASE_URI_HOTELS + "/" + idh + "/rooms/" + idr;
+      return this.http.patch(url, {observe: 'response', responseType:'text'});
+    }
 }

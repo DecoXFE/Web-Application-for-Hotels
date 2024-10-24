@@ -90,7 +90,8 @@ public class HotelController {
     @GetMapping("/{id}/rooms")
     public List<Room> getAvailableRooms(@PathVariable Integer id,
             @RequestParam(required = false) String startDate,
-            @RequestParam(required = false) String endDate) {
+            @RequestParam(required = false) String endDate,
+            @RequestParam(required = true) boolean available) {
         List<Room> rooms;
         Optional<Hotel> hotel = hotelRepository.findById(id);
         if (startDate != null && endDate != null) {
@@ -98,12 +99,14 @@ public class HotelController {
                 LocalDate start = LocalDate.parse(startDate);
                 LocalDate end = LocalDate.parse(endDate);
                 rooms = roomRepository.findAvailableRoomsInDateRangeByHotelId(id, start, end);
-            } catch (Exception e) {
+            }
+             catch (Exception e) {
                 throw new HotelException("Formato de fechas incorrectas");
             }
-
-        } else {
+        } else if(available){
             rooms = roomRepository.findByHotelIdAndAvailableTrue(hotel);
+        } else{
+            rooms = roomRepository.findByHotelId(hotel);
         }
         return rooms;
     }
