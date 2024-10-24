@@ -30,6 +30,8 @@ export class AppComponent {
       next: (response) => {
           console.log("Usuario creado con éxito:", response);
           this.resetForm();
+          // ! Revisar
+          window.location.reload();
       },
       error: (error) => {
           console.error("Error al crear el usuario:", error);

@@ -67,7 +67,9 @@ export class ListHotelsComponent {
 
     this.clientApiRest.createHotel(hotel).subscribe({
       next: (response) => {
-        this.resetForm;
+        this.resetForm();
+        // ! Revisar
+        window.location.reload();
         
       },
       error: (error) => {
