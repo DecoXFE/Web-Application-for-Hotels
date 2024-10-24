@@ -34,6 +34,7 @@ public class Room {
     @Basic(optional = false)
     private Integer id;
 
+    // ? unico para el hotel 
     @Basic(optional = false)
     private String roomNumber;
 

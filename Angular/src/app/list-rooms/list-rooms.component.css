@@ -1,8 +1,9 @@
-.hotels-table{
+.rooms-table{
     margin-top:100px;
     border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0px 0px 8px 0px #7a4cf869; /* Sombra */
+    padding:0;
 }
-
 .table{
     margin:0;
 }
@@ -19,21 +20,4 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.actions{
-    width: 200px;
-}
-
-.actionButton{
-    width:75px;
-}
-
-.addButton{
-    margin-bottom: 10px;
-}
-
-.tabletop{
-    box-shadow: 0px 0px 8px 0px #7a4cf869; /* Sombra */
-    padding:0;
 }
