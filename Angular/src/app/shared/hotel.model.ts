@@ -3,7 +3,7 @@ import { Room } from "./room.model";
 export interface Address{
     streetKind : String;
     streetName : String;
-    number : String;
+    number : Number;
     postCode : String;
     otherInfo : String;
 }

@@ -120,7 +120,7 @@ public class HotelController {
             Optional<Room> optionalRoom = roomRepository.findById(idr);
             Room room = optionalRoom.get();
 
-            if(room.getHotelId().getId() == idh){
+            if(room.getHotelId().getId() != idh){
                 throw new HotelException("Esa habitación no corresponde a ese hotel");
             }
 

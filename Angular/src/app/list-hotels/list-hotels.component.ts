@@ -21,7 +21,7 @@ export class ListHotelsComponent {
     name: '',
     streetKind: '',
     streetName: '',
-    number: '',
+    number: 0,
     postCode: '',
     otherInfo: '',
     rooms: [] as Room[]
@@ -73,7 +73,7 @@ export class ListHotelsComponent {
         
       },
       error: (error) => {
-        console.error("Error al borrar el hotel:", error);
+        console.error("Error al crear el hotel:", error);
       }
     })
   }
@@ -91,7 +91,7 @@ export class ListHotelsComponent {
 
   addRoom() {
     this.newHotel.rooms.push({
-      id : 0,
+      id : (this.newHotel.rooms.length+1),
       roomNumber: (this.newHotel.rooms.length + 1).toString(),
       roomType: RoomType.SINGLE,
       available: false
@@ -111,7 +111,7 @@ export class ListHotelsComponent {
       name: '',
       streetKind: '',
       streetName: '',
-      number: '',
+      number: 0,
       postCode: '',
       otherInfo: '',
       rooms: [] as Room[]
