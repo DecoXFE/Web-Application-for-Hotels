@@ -72,7 +72,7 @@ export class ClienteApiRestService {
     */
     getRooms(id : Number) : Observable<HttpResponse<any>>{
       console.log("Entrando en getHotels");
-      let url = ClienteApiRestService.BASE_URI_HOTELS + "/" + id + "/rooms";
+      let url = ClienteApiRestService.BASE_URI_HOTELS + "/" + id + "/rooms?available=false";
       return this.http.get<Room[]>(url, {observe: 'response'});
     }
 
