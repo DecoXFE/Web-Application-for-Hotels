@@ -5,6 +5,7 @@ export enum RoomType{
 }
 
 export interface Room{
+    id : Number;
     roomNumber : String;
     roomType : RoomType;
     available : boolean;

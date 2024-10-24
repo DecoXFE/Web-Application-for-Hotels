@@ -84,4 +84,13 @@ export class ClienteApiRestService {
       let url = ClienteApiRestService.BASE_URI_HOTELS;
       return this.http.post(url, hotel, {observe: 'response', responseType:'text'})
     }
+
+    /*
+    * Edits the availability of a room
+    */
+    editRoomAvailability(idh : Number, idr : Number) : Observable<any>{
+      console.log("Entrando en editRoomAvailability");
+      let url = ClienteApiRestService.BASE_URI_HOTELS + "/" + idh + "/rooms/" + idr;
+      return this.http.patch(url, {observe: 'response', responseType:'text'});
+    }
 }

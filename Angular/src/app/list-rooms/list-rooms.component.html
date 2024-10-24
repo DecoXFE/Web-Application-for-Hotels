@@ -13,7 +13,9 @@
           <tr *ngFor="let room of rooms">
             <td>{{room.roomNumber}}</td>
             <td>{{room.roomType}}</td>
-            <td>{{room.available}}</td>
+            <td>
+              <input class="form-check-input" type="checkbox" name="available" [(ngModel)] = "room.available" (change)="changeAvailable(room.id)">
+            </td>
           </tr>
         </tbody>
       </table>

@@ -14,12 +14,14 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ListRoomsComponent {
   rooms!: Room[];
+  hotelId!: Number;
 
   constructor(private clientApiRest: ClienteApiRestService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
-      this.getRooms(+params.get('id')!);
+      this.hotelId = +params.get('id')!;
+      this.getRooms(this.hotelId);
     });
   }
 
@@ -27,6 +29,18 @@ export class ListRoomsComponent {
     this.clientApiRest.getRooms(id).subscribe({
       next: (response) => {
         this.rooms = response.body;
+      },
+      error: (error) => {
+        console.error("Error al conseguir las habitaciones:", error);
+      }
+    });
+  }
+
+  changeAvailable(idr: Number){
+    this.clientApiRest.editRoomAvailability(this.hotelId, idr).subscribe({
+      next: (response) => {
+        // ! revisar
+        window.location.reload();
       },
       error: (error) => {
         console.error("Error al conseguir las habitaciones:", error);

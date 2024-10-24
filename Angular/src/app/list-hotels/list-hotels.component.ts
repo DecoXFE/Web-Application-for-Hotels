@@ -91,6 +91,7 @@ export class ListHotelsComponent {
 
   addRoom() {
     this.newHotel.rooms.push({
+      id : 0,
       roomNumber: (this.newHotel.rooms.length + 1).toString(),
       roomType: RoomType.SINGLE,
       available: false
