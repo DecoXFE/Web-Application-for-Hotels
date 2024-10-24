@@ -1,4 +1,4 @@
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Address, Hotel } from '../shared/hotel.model';
@@ -9,13 +9,15 @@ import { Room, RoomType } from '../shared/room.model';
 @Component({
   selector: 'app-list-hotels',
   standalone: true,
-  imports: [NgFor, FormsModule, RouterLink],
+  imports: [NgFor, FormsModule, RouterLink, NgIf],
   templateUrl: './list-hotels.component.html',
   styleUrl: './list-hotels.component.css'
 })
 export class ListHotelsComponent {
   hotels!: Hotel[];
   selectedHotelId: Number = -1;
+
+  errorExistMessage = "";
 
   newHotel = {
     name: '',
@@ -44,69 +46,77 @@ export class ListHotelsComponent {
     });
   }
 
-  openDeleteModal(id: Number){
+  openDeleteModal(id: Number) {
     this.selectedHotelId = id;
   }
 
-  onSubmit(){
+  onSubmit() {
+    
+    if (isNaN(this.newHotel.number)) {
+      this.errorExistMessage = "Hotel number must be a valid number"
+    } else {
+      const address: Address = {
+        streetKind: this.newHotel.streetKind,
+        streetName: this.newHotel.streetName,
+        number: this.newHotel.number,
+        postCode: this.newHotel.postCode,
+        otherInfo: this.newHotel.otherInfo
+      };
+  
+      const hotel: Hotel = {
+        id: 0,
+        name: this.newHotel.name,
+        address: address,
+        roomCollection: this.newHotel.rooms
+      };
 
-    const address: Address = {
-      streetKind: this.newHotel.streetKind,
-      streetName: this.newHotel.streetName,
-      number: this.newHotel.number,
-      postCode: this.newHotel.postCode,
-      otherInfo: this.newHotel.otherInfo
-    };
-
-    const hotel: Hotel = {
-      id: 0,
-      name: this.newHotel.name,
-      address: address,
-      roomCollection: this.newHotel.rooms
-    };
-
-    this.clientApiRest.createHotel(hotel).subscribe({
-      next: (response) => {
-        this.resetForm();
-        // ! Revisar
-        window.location.reload();
-        
-      },
-      error: (error) => {
-        console.error("Error al crear el hotel:", error);
-      }
-    })
+      this.clientApiRest.createHotel(hotel).subscribe({
+        next: (response) => {
+          this.resetForm();
+          // ! Revisar
+          window.location.reload();
+        },
+        error: (error) => {
+          console.error("Error al crear el hotel:", error)
+          this.errorExistMessage = error.error
+        }
+      })
+    }
   }
 
   deleteHotel() {
     this.clientApiRest.deleteHotel(this.selectedHotelId).subscribe({
       next: (response) => {
+        // ! Hacer esto con routing
         this.hotels = this.hotels.filter(hotel => hotel.id !== this.selectedHotelId);
       },
       error: (error) => {
-        console.error("Error al borrar el hotel:", error);
+        console.error("Error al borrar el hotel:", error)
       }
     })
   }
 
+  // ! Error al añadir habitaciones
   addRoom() {
+    const maxId = this.newHotel.rooms.length > 0 
+    ? Math.max(...this.newHotel.rooms.map(room => room.id.valueOf())) : 0;
     this.newHotel.rooms.push({
-      id : (this.newHotel.rooms.length+1),
-      roomNumber: (this.newHotel.rooms.length + 1).toString(),
+      id: maxId+1,
+      roomNumber: (maxId+1).toString(),
       roomType: RoomType.SINGLE,
       available: false
     });
   }
 
-  removeRoom(i: number){
+  removeRoom(i: number) {
     this.newHotel.rooms.splice(i, 1);
   }
 
-  onCancel(){
+  onCancel() {
     this.resetForm();
   }
 
-  resetForm(){
+  resetForm() {
     this.newHotel = {
       name: '',
       streetKind: '',
@@ -117,4 +127,5 @@ export class ListHotelsComponent {
       rooms: [] as Room[]
     };
   }
+
 }

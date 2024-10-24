@@ -96,9 +96,6 @@
           </div>
 
           <div class="mb-3">
-            <label class="form-label">Rooms</label>
-            <button type="button" class="btn btn-primary mb-2 ms-3" (click)="addRoom()">Add Room</button>
-
             <div *ngFor="let room of newHotel.rooms; let i = index">
               <div class="card mb-2">
                 <div class="card-body">
@@ -119,10 +116,10 @@
                   </div>
 
                   <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" name="available" [(ngModel)]="room.available">
-                    <label class="form-check-label" for="flexCheckChecked">
+                    <label class="form-check-label" for="available">
                       Available
                     </label>
+                    <input class="form-check-input" type="checkbox" id="available" name="roomAvailable-{{ i }}" [(ngModel)]="room.available">
                   </div>
 
                   <button type="button" class="btn btn-danger" (click)="removeRoom(i)">Remove Room</button>
@@ -130,8 +127,11 @@
               </div>
             </div>
           </div>
-
+          <div *ngIf="errorExistMessage" class="alert alert-danger">
+            {{ errorExistMessage }}
+        </div>
           <div class="modal-footer">
+              <button type="button" class="btn btn-primary me-auto" (click)="addRoom()">Add Room</button>
             <button type="button" class="btn btn-danger actionButton" data-bs-dismiss="modal"
               (click)="onCancel()">Cancel</button>
             <button type="submit" class="btn btn-primary" [disabled]="hotelForm.form.invalid">Confirm</button>
