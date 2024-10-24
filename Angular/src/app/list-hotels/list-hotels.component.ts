@@ -1,9 +1,10 @@
 import { NgFor } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Hotel } from '../shared/hotel.model';
+import { Address, Hotel } from '../shared/hotel.model';
 import { ClienteApiRestService } from '../shared/client-api-rest.service';
 import { RouterLink } from '@angular/router';
+import { Room, RoomType } from '../shared/room.model';
 
 @Component({
   selector: 'app-list-hotels',
@@ -15,6 +16,16 @@ import { RouterLink } from '@angular/router';
 export class ListHotelsComponent {
   hotels!: Hotel[];
   selectedHotelId: Number = -1;
+
+  newHotel = {
+    name: '',
+    streetKind: '',
+    streetName: '',
+    number: '',
+    postCode: '',
+    otherInfo: '',
+    rooms: [] as Room[]
+  };
 
   constructor(private clientApiRest: ClienteApiRestService) { }
 
@@ -37,6 +48,34 @@ export class ListHotelsComponent {
     this.selectedHotelId = id;
   }
 
+  onSubmit(){
+
+    const address: Address = {
+      streetKind: this.newHotel.streetKind,
+      streetName: this.newHotel.streetName,
+      number: this.newHotel.number,
+      postCode: this.newHotel.postCode,
+      otherInfo: this.newHotel.otherInfo
+    };
+
+    const hotel: Hotel = {
+      id: 0,
+      name: this.newHotel.name,
+      address: address,
+      roomCollection: this.newHotel.rooms
+    };
+
+    this.clientApiRest.createHotel(hotel).subscribe({
+      next: (response) => {
+        this.resetForm;
+        
+      },
+      error: (error) => {
+        console.error("Error al borrar el hotel:", error);
+      }
+    })
+  }
+
   deleteHotel() {
     this.clientApiRest.deleteHotel(this.selectedHotelId).subscribe({
       next: (response) => {
@@ -46,5 +85,33 @@ export class ListHotelsComponent {
         console.error("Error al borrar el hotel:", error);
       }
     })
+  }
+
+  addRoom() {
+    this.newHotel.rooms.push({
+      roomNumber: (this.newHotel.rooms.length + 1).toString(),
+      roomType: RoomType.SINGLE,
+      available: false
+    });
+  }
+
+  removeRoom(i: number){
+    this.newHotel.rooms.splice(i, 1);
+  }
+
+  onCancel(){
+    this.resetForm();
+  }
+
+  resetForm(){
+    this.newHotel = {
+      name: '',
+      streetKind: '',
+      streetName: '',
+      number: '',
+      postCode: '',
+      otherInfo: '',
+      rooms: [] as Room[]
+    };
   }
 }

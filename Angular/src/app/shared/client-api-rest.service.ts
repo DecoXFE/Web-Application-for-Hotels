@@ -59,4 +59,13 @@ export class ClienteApiRestService {
       let url = ClienteApiRestService.BASE_URI_HOTELS + "/" + id + "/rooms";
       return this.http.get<Room[]>(url, {observe: 'response'});
     }
+
+    /*
+    * Creates a new hotel
+    */
+    createHotel(hotel : Hotel) : Observable<HttpResponse<any>>{
+      console.log("Entrando en createHotel");
+      let url = ClienteApiRestService.BASE_URI_HOTELS;
+      return this.http.post(url, hotel, {observe: 'response', responseType:'text'})
+    }
 }
