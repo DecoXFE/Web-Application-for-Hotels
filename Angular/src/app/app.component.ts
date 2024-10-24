@@ -22,11 +22,11 @@ export class AppComponent {
   };
   emailExistsMessage: string = "";
 
-  constructor(private clienteApiRest: ClienteApiRestService) { }
+  constructor(private clientApiRest: ClienteApiRestService) { }
 
   onSignIn() {
     console.log("Entrando en submit");
-    this.clienteApiRest.createUser(this.user).subscribe({
+    this.clientApiRest.createUser(this.user).subscribe({
       next: (response) => {
           console.log("Usuario creado con éxito:", response);
           this.resetForm();
@@ -52,5 +52,6 @@ export class AppComponent {
       status: Status.NOBOOKINGS
     }
   }
+
 }
 

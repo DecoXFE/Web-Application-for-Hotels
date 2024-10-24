@@ -39,6 +39,7 @@ public class UserController {
     }
 
     // Registra un nuevo usuario con estado sin reservas
+    // ? USAR EMAIL VALIDATOR DE ANGULAR
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public void newUser(@RequestBody User newUser) {
         try {

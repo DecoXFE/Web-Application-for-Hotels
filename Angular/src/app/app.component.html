@@ -16,6 +16,9 @@
                     <li class="nav-item active">
                         <a routerLink="/hotels" routerLinkActive="active" class="nav-link fw-bold">Hotels</a>
                     </li>
+                    <li class="nav-item active mb-md-0 mb-2">
+                        <a routerLink="/bookingForm" routerLinkActive="active" class="nav-link fw-bold">Create Booking</a>
+                    </li>
                 </ul>
             <div class="ms-auto">
                 <button class="btn btn-primary credentials me-3" type="button" data-bs-toggle="modal"
@@ -77,7 +80,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email address</label>
-                        <input name ="email" [(ngModel)]="user.email" type="email" class="form-control" id="email" aria-describedby="emailHelp" required>
+                        <input name ="email" [(ngModel)]="user.email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="name@example.com" required>
                         <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                     </div>
                     <div *ngIf="emailExistsMessage" class="alert alert-danger">
