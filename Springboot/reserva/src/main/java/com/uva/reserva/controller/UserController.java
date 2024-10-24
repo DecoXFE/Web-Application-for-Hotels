@@ -42,19 +42,17 @@ public class UserController {
     // ? USAR EMAIL VALIDATOR DE ANGULAR
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public void newUser(@RequestBody User newUser) {
-        try {
-            String emailRegex = "^[\\w-\\.]+@[\\w-]+\\.[a-z]{2,}$";
-            Pattern pattern = Pattern.compile(emailRegex);
-            Matcher matcher = pattern.matcher(newUser.getEmail());
-            if(matcher.matches()){
-                newUser.setStatus(UserStatus.NOBOOKINGS);
-                repository.save(newUser);
-            }else{
-                throw new UserException("Formato del email incorrecto");
-            }
-        } catch (Exception e) {
-            throw new UserException("Error al crear el nuevo usuario.");
+        String emailRegex = "^[\\w-\\.]+@[\\w-]+\\.[a-z]{2,}$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(newUser.getEmail());
+        if (!matcher.matches()) {
+            throw new UserException("Incorrect email format");
+        } 
+        if(repository.findByEmail(newUser.getEmail())!=null){
+            throw new UserException("Email already exists");
         }
+        newUser.setStatus(UserStatus.NOBOOKINGS);
+        repository.save(newUser);
     }
 
     // Devuelve los detalles del usuario con el ID especificado.
@@ -91,6 +89,8 @@ public class UserController {
 
     // Modifica el estado de un usuario (status) de forma consistente con sus
     // reservas.
+    // ! METODO TOTALMENTE MAL, HAY QUE CAMBIAR AL STATUS QUE LE CORRESPONDE DE MANERA AUTOMÁTICA
+    // ? Preguntar como hacer que se actualice solo
     @PatchMapping("/{id}")
     public void patchUser(@RequestBody User userDetails, @PathVariable Integer id) {
         Optional<User> existingUser = repository.findById(id);
