@@ -56,3 +56,24 @@ body{
   text-align: center;  /* Centra el texto dentro del botón */
   color: white;  /* Color del texto */
 }
+
+.displayer{
+  background-color: white;
+  border-radius: 8px;
+  padding: 25px;
+  padding-bottom: 30px;
+  box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.75);
+}
+
+.primary{
+  color:#794cf8;
+}
+
+.icon-btn{
+  background-color:transparent;
+  border: none;
+}
+
+.icon-btn:hover{
+  filter:brightness(85%);
+}
