@@ -1,12 +1,14 @@
-.users-table{
-    margin-top:100px;
-    border-radius: 8px; /* Bordes redondeados */
-    padding:0;
+.displayer{
+    background-color: white;
+    border-radius: 8px;
+    padding: 25px;
+    padding-bottom: 30px;
+    box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.75);
 }
+
 
 .table{
     margin:0;
-    box-shadow: 0px 0px 8px 0px #7a4cf869; /* Sombra */
 }
 
 .table-group-divider{
@@ -14,11 +16,27 @@
 }
 
 .selectStatus{
-    max-width: 95px;
+    max-width: 200px;
+    border-color: #794cf8;
 }
 
 .status-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.text-bg-active{
+    background-color: #C2D8C5;
+    color: #0B390E;
+}
+
+.text-bg-inactive{
+    background-color: #F1A19D;
+    color: #5C1A00;
+}
+
+.text-bg-none{
+    background-color: #a6c8ff;
+    color:#131071;
 }
