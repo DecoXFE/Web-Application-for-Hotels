@@ -54,7 +54,10 @@ export class ListHotelsComponent {
     
     if (isNaN(this.newHotel.number)) {
       this.errorExistMessage = "Hotel number must be a valid number"
-    } else {
+    } else if(this.newHotel.rooms.length == 0){
+      // ? Esto hacerlo aqui o en la api
+      this.errorExistMessage = "No rooms were added"
+    }else{
       const address: Address = {
         streetKind: this.newHotel.streetKind,
         streetName: this.newHotel.streetName,
