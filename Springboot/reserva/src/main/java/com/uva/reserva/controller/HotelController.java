@@ -133,10 +133,6 @@ public class HotelController {
             Optional<Room> optionalRoom = roomRepository.findById(idr);
             Room room = optionalRoom.get();
 
-            if(room.getHotelId().getId() != idh){
-                throw new HotelException("The room doesn't exist in the hotel");
-            }
-
             room.setAvailable(!room.isAvailable());
             roomRepository.save(room);
         }
