@@ -2,7 +2,7 @@ import { NgFor } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Room } from '../shared/room.model';
-import { ClienteApiRestService } from '../shared/client-api-rest.service';
+import { ClientApiRestService } from '../shared/client-api-rest.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -16,7 +16,7 @@ export class ListRoomsComponent {
   rooms!: Room[];
   hotelId!: Number;
 
-  constructor(private clientApiRest: ClienteApiRestService, private route: ActivatedRoute) { }
+  constructor(private clientApiRest: ClientApiRestService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -31,7 +31,7 @@ export class ListRoomsComponent {
         this.rooms = response.body;
       },
       error: (error) => {
-        console.error("Error al conseguir las habitaciones:", error);
+        console.error("Error getting rooms:", error);
       }
     });
   }
@@ -43,7 +43,7 @@ export class ListRoomsComponent {
         window.location.reload();
       },
       error: (error) => {
-        console.error("Error al conseguir las habitaciones:", error);
+        console.error("Error changing availability:", error);
       }
     });
   }

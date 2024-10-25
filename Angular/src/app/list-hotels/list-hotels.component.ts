@@ -2,7 +2,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Address, Hotel } from '../shared/hotel.model';
-import { ClienteApiRestService } from '../shared/client-api-rest.service';
+import { ClientApiRestService } from '../shared/client-api-rest.service';
 import { RouterLink } from '@angular/router';
 import { Room, RoomType } from '../shared/room.model';
 
@@ -29,7 +29,7 @@ export class ListHotelsComponent {
     rooms: [] as Room[]
   };
 
-  constructor(private clientApiRest: ClienteApiRestService) { }
+  constructor(private clientApiRest: ClientApiRestService) { }
 
   ngOnInit() {
     this.getHotels();
@@ -41,7 +41,7 @@ export class ListHotelsComponent {
         this.hotels = response.body;
       },
       error: (error) => {
-        console.error("Error al conseguir los hoteles:", error);
+        console.error("Error getting hotels:", error);
       }
     });
   }
@@ -77,7 +77,7 @@ export class ListHotelsComponent {
           window.location.reload();
         },
         error: (error) => {
-          console.error("Error al crear el hotel:", error)
+          console.error("Error creating hotel:", error)
           this.errorExistMessage = error.error
         }
       })
@@ -91,7 +91,7 @@ export class ListHotelsComponent {
         this.hotels = this.hotels.filter(hotel => hotel.id !== this.selectedHotelId);
       },
       error: (error) => {
-        console.error("Error al borrar el hotel:", error)
+        console.error("Error deleting hotel:", error)
       }
     })
   }

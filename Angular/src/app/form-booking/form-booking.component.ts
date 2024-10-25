@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ClienteApiRestService } from '../shared/client-api-rest.service';
+import { ClientApiRestService } from '../shared/client-api-rest.service';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { Booking } from '../shared/booking.model';
@@ -27,7 +27,7 @@ export class FormBookingComponent{
   }
 
 
-  constructor(private clientApiRest: ClienteApiRestService){}
+  constructor(private clientApiRest: ClientApiRestService){}
 
   onNewBooking(){
     console.log("Entering onNewBooking")

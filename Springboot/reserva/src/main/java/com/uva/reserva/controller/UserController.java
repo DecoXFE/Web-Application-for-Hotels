@@ -32,13 +32,17 @@ public class UserController {
         this.repository = repository;
     }
 
-    // Devuelve la lista de usuarios registrados
+    /*
+     * Returns all users
+     */
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<User> getAllUsers() {
         return repository.findAll();
     }
 
-    // Registra un nuevo usuario con estado sin reservas
+    /*
+     * Creates a new user
+     */
     // ? USAR EMAIL VALIDATOR DE ANGULAR
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public void newUser(@RequestBody User newUser) {
@@ -48,6 +52,8 @@ public class UserController {
         if (!matcher.matches()) {
             throw new UserException("Incorrect email format");
         } 
+        System.out.println(repository.findByEmail(newUser.getEmail()));
+        // ! Fix != null not working as its Optional.empty
         if(repository.findByEmail(newUser.getEmail())!=null){
             throw new UserException("Email already exists");
         }
@@ -55,13 +61,17 @@ public class UserController {
         repository.save(newUser);
     }
 
-    // Devuelve los detalles del usuario con el ID especificado.
+    /*
+     * Returns the details of a specific user
+     */
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Optional<User> getUserById(@PathVariable Integer id) {
         return repository.findById(id);
     }
 
-    // Modifica los datos de un usuario (nombre, email).
+    /*
+     * Changes the data of a user
+     */
     @PutMapping("/{id}")
     public void putUser(@RequestBody User userDetails, @PathVariable Integer id) {
         Optional<User> existingUser = repository.findById(id);
@@ -71,13 +81,17 @@ public class UserController {
         repository.save(baseUser);
     }
 
-    // Elimina un usuario y sus reservas asociadas.
+    /*
+     * Deletes a user and it's bookings
+     */
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Integer id) {
         repository.deleteById(id);
     }
 
-    // Devuelve una lista con las reservas activas
+    /*
+     * Returns all active bookings
+     */
     private long getActiveBookings(User user) {
         return user.getBookingCollection()
                 .stream()
@@ -87,8 +101,9 @@ public class UserController {
 
     }
 
-    // Modifica el estado de un usuario (status) de forma consistente con sus
-    // reservas.
+    /*
+     * Modify the state of a user consistently with its bookings.
+     */
     // ! METODO TOTALMENTE MAL, HAY QUE CAMBIAR AL STATUS QUE LE CORRESPONDE DE MANERA AUTOMÁTICA
     // ? Preguntar como hacer que se actualice solo
     @PatchMapping("/{id}")
