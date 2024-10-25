@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { User } from '../shared/user.model';
-import { ClienteApiRestService } from '../shared/client-api-rest.service';
+import { ClientApiRestService } from '../shared/client-api-rest.service';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -11,12 +11,13 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './list-users.component.html',
   styleUrl: './list-users.component.css'
 })
+
 export class ListUsersComponent implements OnInit {
   users!: User[];
   statusFilter = "";
 
 
-  constructor(private clientApiRest: ClienteApiRestService) { }
+  constructor(private clientApiRest: ClientApiRestService) { }
 
   ngOnInit() {
     this.getUsers();
@@ -31,7 +32,7 @@ export class ListUsersComponent implements OnInit {
       }
       },
       error: (error) => {
-          console.error("Error al conseguir los usuarios:", error);
+          console.error("Error getting users:", error);
       }
   });
   }

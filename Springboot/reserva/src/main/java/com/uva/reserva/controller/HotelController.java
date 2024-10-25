@@ -35,7 +35,9 @@ public class HotelController {
         this.roomRepository = rr;
     }
 
-    // Agrega un hotel a la base de datoas con sus habitaciones y reservas
+    /*
+    *    Adds an hotel to the database with rooms
+    */ 
     @PostMapping()
     public void createHotel(@RequestBody Hotel hotel) {
         try {
@@ -51,31 +53,39 @@ public class HotelController {
             }
             hotelRepository.save(hotel);
         } catch (Exception e) {
-            throw new HotelException("Error al crear nuevo hotel");
+            throw new HotelException("Error creating the hotel");
         }
     }
 
-    // Elimina el hotel con dicha id de la base de datos
+    /*
+    * Deletes the hotel by id
+    */
     @DeleteMapping("/{id}")
     public void deleteHotel(@PathVariable Integer id) {
         hotelRepository.deleteById(id);
     }
 
-    // Consigue todos los hoteles de la base de datos
+    /*
+     * Returns all hotels from the database
+     */
     @GetMapping()
     public List<Hotel> getHotels() {
         List<Hotel> hotels = hotelRepository.findAll();
         return hotels;
     }
 
-    // Consigue los datos de un hotel en específico
+    /*
+     * Returns the details of a specific hotel
+     */
     @GetMapping("/{id}")
     public Optional<Hotel> getHotelById(@PathVariable Integer id) {
         Optional<Hotel> hotel = hotelRepository.findById(id);
         return hotel;
     }
 
-    // Devuelve los detalles de la habitación con el ID especificado.
+    /*
+     * Returns the details of a specific room
+     */
     @GetMapping("/{idh}/rooms/{idr}")
     public Optional<Room> getRoomById(@PathVariable Integer idh, @PathVariable Integer idr) {
         Optional<Hotel> optionalHotel = hotelRepository.findById(idh);
@@ -85,8 +95,9 @@ public class HotelController {
 
     }
 
-    // Devuelve la lista de las habitaciones disponibles de un hotel, en general,
-    // y en una fechas dadas (con query en la URI).
+    /*
+     * Returns the available rooms, in general, and within a date range (QUERY URI)
+     */
     @GetMapping("/{id}/rooms")
     public List<Room> getAvailableRooms(@PathVariable Integer id,
             @RequestParam(required = false) String startDate,
@@ -101,7 +112,7 @@ public class HotelController {
                 rooms = roomRepository.findAvailableRoomsInDateRangeByHotelId(id, start, end);
             }
              catch (Exception e) {
-                throw new HotelException("Formato de fechas incorrectas");
+                throw new HotelException("Incorrect date format");
             }
         } else if(available){
             rooms = roomRepository.findByHotelIdAndAvailableTrue(hotel);
@@ -111,7 +122,9 @@ public class HotelController {
         return rooms;
     }
 
-    // Modifica la disponibilidad de la habitación.
+    /*
+     * Changes the availability of a room
+     */
     // ? Comprobación de HotelId
     @PatchMapping("/{idh}/rooms/{idr}")
     public void updateAvailability(@PathVariable Integer idh, @PathVariable Integer idr
@@ -121,14 +134,14 @@ public class HotelController {
             Room room = optionalRoom.get();
 
             if(room.getHotelId().getId() != idh){
-                throw new HotelException("Esa habitación no corresponde a ese hotel");
+                throw new HotelException("The room doesn't exist in the hotel");
             }
 
             room.setAvailable(!room.isAvailable());
             roomRepository.save(room);
         }
         catch(Exception e){
-            throw new HotelException("No existe esa habitación");
+            throw new HotelException("The room doesn't exist");
         }
 
     }
