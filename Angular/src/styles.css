@@ -1,6 +1,24 @@
 @import "bootstrap/dist/css/bootstrap.min.css";
 
 
+body{
+  background-color: #DADADB;
+  color:#0E2239;
+}
+
+.ctop{
+  margin-top:100px;
+}
+
+.alert-info{
+  background-color: #CCC4E9;
+  color:#110080;
+  border-color: #794cf8;
+  margin: 0px;
+  font-weight: 650;
+}
+
+
 .btn-primary{
     --bs-btn-bg:#794cf8;
     --bs-btn-hover-bg: #7a4cf8d0;
@@ -27,4 +45,50 @@
 .form-select:focus{
   border-color: #794cf8;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #7a4cf869;
+}
+
+.c-badge{
+  display: inline-block;
+  padding: 1px 20px;  /* Aumenta el padding horizontal para que el botón se vea más alargado */
+  font-size: 15px;  /* Tamaño de fuente */
+  border-radius: 50px;  /* Bordes redondeados */
+  min-width: 90px;  /* Ancho mínimo para igualar el tamaño */
+  text-align: center;  /* Centra el texto dentro del botón */
+  color: white;  /* Color del texto */
+}
+
+.displayer{
+  background-color: white;
+  border-radius: 8px;
+  padding: 25px;
+  padding-bottom: 30px;
+  box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);
+}
+
+.primary{
+  color:#794cf8;
+}
+
+.icon-btn{
+  background-color:transparent;
+  border: none;
+}
+
+.icon-btn:hover{
+  filter:brightness(85%);
+}
+
+.text-bg-true{
+  background-color: #C2D8C5;
+  color: #0B390E;
+}
+
+.text-bg-false{
+  background-color: #F1A19D;
+  color: #5C1A00;
+}
+
+.text-bg-none{
+  background-color: #a6c8ff;
+  color:#131071;
 }

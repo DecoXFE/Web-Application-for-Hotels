@@ -1,35 +1,47 @@
-<div class="container booking-form">
+<div class="container ctop">
+    <h1 class="mb-3">Create new booking</h1>
+    <hr>
+    <div class="displayer">
+        <h2>Booking</h2>
+        <p>Complete the form with valid inputs in order to create a new booking</p>
+        <form (ngSubmit)="onNewBooking()" #bookingForm="ngForm">
 
-    <h2 class="mb-3">Create new booking</h2>
-    <form (ngSubmit)="onNewBooking()" #bookingForm="ngForm">
-
-        <label for="email" class="form-label">Input user email</label>
-        <input name="email" type="email" class="form-control mb-2" id="email" placeholder="name@example.com" required [(ngModel)]="userEmail">
-       
-        <div class="row mb-2">
-            <div class="col-md-6 mb-md-0 mb-2">
-                <label for="startDate" class="form-label">Start date</label>
-                <input name="startDate" type="date" id="startDate" class="form-control" required [(ngModel)]="booking.startDate">
+            <label for="email" class="form-label">User email</label>
+            <input name="email" type="email" class="form-control mb-2" id="email" placeholder="name@example.com" required [(ngModel)]="userEmail">
+           
+            <div class="row mb-2">
+                <div class="col-md-6 mb-md-0 mb-2">
+                    <label for="startDate" class="form-label">Start date</label>
+                    <input name="startDate" type="date" id="startDate" class="form-control" required [(ngModel)]="booking.startDate">
+                </div>
+                <div class="col-md-6">
+                    <label for="endDate" class="form-label ms-auto">End date</label>
+                    <input name="endDate" type="date" id="endDate" class="form-control" required [(ngModel)]="booking.endDate">
+                </div>
             </div>
-            <div class="col-md-6">
-                <label for="endDate" class="form-label ms-auto">End date</label>
-                <input name="endDate" type="date" id="endDate" class="form-control" required [(ngModel)]="booking.endDate">
+           
+    
+            <label for="roomType" class="form-label">Select rooom type</label>
+            <select name="roomType" id="roomType" class="form-select" aria-label="Select the type of room desired" required [(ngModel)]="roomType">
+                <option value="SINGLE">Single</option>
+                <option value="DOUBLE">Double</option>
+                <option value="SUITE">Suite</option>
+            </select>
+    
+            <div class="d-flex justify-content-center mt-4">
+                <button type="submit" class="btn btn-primary" [disabled]="!bookingForm.form.valid">Create Booking</button>
             </div>
-        </div>
-       
-
-        <label for="roomType" class="form-label">Select rooom type</label>
-        <select name="roomType" id="roomType" class="form-select" aria-label="Select the type of room desired" required [(ngModel)]="roomType">
-            <option value="SINGLE">Single</option>
-            <option value="DOUBLE">Double</option>
-            <option value="SUITE">Suite</option>
-        </select>
-
-        <div class="d-flex justify-content-center mt-4 mb-3">
-            <button type="submit" class="btn btn-primary" [disabled]="!bookingForm.form.valid">Create Booking</button>
-        </div>
-
-        <div *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</div>   
-        <div *ngIf="successMessage" class="alert alert-success">{{successMessage}}</div>   
-    </form>
-</div>
+    
+            <div *ngIf="errorMessage" class="alert alert-danger mt-3 d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill me-2" viewBox="0 0 16 16">
+                    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                  </svg>
+                {{errorMessage}}</div>   
+            <div *ngIf="successMessage" class="alert alert-success mt-3 d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-check-fill me-2" viewBox="0 0 16 16">
+                    <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2m-5.146-5.146-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
+                  </svg>{{successMessage}}</div>   
+        </form>
+    </div>
+    </div>
+    
