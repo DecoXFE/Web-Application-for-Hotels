@@ -52,9 +52,7 @@ public class UserController {
         if (!matcher.matches()) {
             throw new UserException("Incorrect email format");
         } 
-        System.out.println(repository.findByEmail(newUser.getEmail()));
-        // ! Fix != null not working as its Optional.empty
-        if(repository.findByEmail(newUser.getEmail())!=null){
+        if(repository.findByEmail(newUser.getEmail()).isPresent()){
             throw new UserException("Email already exists");
         }
         newUser.setStatus(UserStatus.NOBOOKINGS);
