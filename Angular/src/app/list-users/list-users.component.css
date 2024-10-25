@@ -19,17 +19,3 @@
     align-items: center;
 }
 
-.text-bg-active{
-    background-color: #C2D8C5;
-    color: #0B390E;
-}
-
-.text-bg-inactive{
-    background-color: #F1A19D;
-    color: #5C1A00;
-}
-
-.text-bg-none{
-    background-color: #a6c8ff;
-    color:#131071;
-}

@@ -35,8 +35,8 @@
                             <td>{{user.email}}</td>
                             <td>
                                 <span *ngIf="user.status == 'NOBOOKINGS'" class="c-badge text-bg-none">None</span>
-                                <span *ngIf="user.status == 'WITHACTIVEBOOKINGS'" class="c-badge text-bg-active">Active</span>
-                                <span *ngIf="user.status == 'WITHINACTIVEBOOKINGS'" class="c-badge text-bg-inactive">Inactive</span>
+                                <span *ngIf="user.status == 'WITHACTIVEBOOKINGS'" class="c-badge text-bg-true">Active</span>
+                                <span *ngIf="user.status == 'WITHINACTIVEBOOKINGS'" class="c-badge text-bg-false">Inactive</span>
                             </td>
                         </tr>
                     </tbody>

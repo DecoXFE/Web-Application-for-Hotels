@@ -77,3 +77,18 @@ body{
 .icon-btn:hover{
   filter:brightness(85%);
 }
+
+.text-bg-true{
+  background-color: #C2D8C5;
+  color: #0B390E;
+}
+
+.text-bg-false{
+  background-color: #F1A19D;
+  color: #5C1A00;
+}
+
+.text-bg-none{
+  background-color: #a6c8ff;
+  color:#131071;
+}
