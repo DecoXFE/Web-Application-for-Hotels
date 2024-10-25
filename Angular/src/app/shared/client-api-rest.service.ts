@@ -10,7 +10,7 @@ import { RoomType } from './room.model';
 @Injectable({
   providedIn: 'root'
 })
-export class ClienteApiRestService {
+export class ClientApiRestService {
 
   private static readonly BASE_URI_USERS = "http://localhost:8080/RoomBooking/users";
   private static readonly BASE_URI_HOTELS = "http://localhost:8080/RoomBooking/hotels";
@@ -23,8 +23,8 @@ export class ClienteApiRestService {
   * Creates a new user
   */
   createUser(user: User): Observable<HttpResponse<any>> {
-    console.log("Entrando en createUser");
-    let url = ClienteApiRestService.BASE_URI_USERS;
+    console.log("Entering createUser");
+    let url = ClientApiRestService.BASE_URI_USERS;
     return this.http.post(url, user, { observe: 'response', responseType: 'text' })
   }
 
@@ -32,8 +32,8 @@ export class ClienteApiRestService {
   * Gets all Users
   */
   getUsers(): Observable<HttpResponse<any>> {
-    console.log("Entrando en getUsers");
-    let url = ClienteApiRestService.BASE_URI_USERS;
+    console.log("Entering getUsers");
+    let url = ClientApiRestService.BASE_URI_USERS;
     return this.http.get<User[]>(url, { observe: 'response' });
   }
 
@@ -41,8 +41,8 @@ export class ClienteApiRestService {
   * Gets all Hotels
   */
   getHotels(): Observable<HttpResponse<any>> {
-    console.log("Entrando en getHotels");
-    let url = ClienteApiRestService.BASE_URI_HOTELS;
+    console.log("Entering getHotels");
+    let url = ClientApiRestService.BASE_URI_HOTELS;
     return this.http.get<Hotel[]>(url, { observe: 'response' });
   }
 
@@ -50,8 +50,8 @@ export class ClienteApiRestService {
   * Delete an hotel
   */
   deleteHotel(id: Number): Observable<HttpResponse<any>> {
-    console.log("Entrando en deleteHotel");
-    let url = ClienteApiRestService.BASE_URI_HOTELS + "/" + id;
+    console.log("Entering deleteHotel");
+    let url = ClientApiRestService.BASE_URI_HOTELS + "/" + id;
     return this.http.delete(url, { observe: 'response', responseType: 'text' });
   }
 
@@ -63,7 +63,7 @@ export class ClienteApiRestService {
     email: String,
     roomType: RoomType): Observable<HttpResponse<any>> {
     console.log("Entering createBooking")
-    let url = ClienteApiRestService.BASE_URI_BOOKINGS + "?userEmail=" + email + "&roomType=" + roomType
+    let url = ClientApiRestService.BASE_URI_BOOKINGS + "?userEmail=" + email + "&roomType=" + roomType
     return this.http.post(url, booking, { observe: 'response', responseType: 'text' })
   }
 
@@ -71,8 +71,8 @@ export class ClienteApiRestService {
     * Gets all avalible rooms of a hotel
     */
     getRooms(id : Number) : Observable<HttpResponse<any>>{
-      console.log("Entrando en getHotels");
-      let url = ClienteApiRestService.BASE_URI_HOTELS + "/" + id + "/rooms?available=false";
+      console.log("Entering getHotels");
+      let url = ClientApiRestService.BASE_URI_HOTELS + "/" + id + "/rooms?available=false";
       return this.http.get<Room[]>(url, {observe: 'response'});
     }
 
@@ -80,8 +80,8 @@ export class ClienteApiRestService {
     * Creates a new hotel
     */
     createHotel(hotel : Hotel) : Observable<HttpResponse<any>>{
-      console.log("Entrando en createHotel");
-      let url = ClienteApiRestService.BASE_URI_HOTELS;
+      console.log("Entering createHotel");
+      let url = ClientApiRestService.BASE_URI_HOTELS;
       return this.http.post(url, hotel, {observe: 'response', responseType:'text'})
     }
 
@@ -89,8 +89,8 @@ export class ClienteApiRestService {
     * Edits the availability of a room
     */
     editRoomAvailability(idh : Number, idr : Number) : Observable<any>{
-      console.log("Entrando en editRoomAvailability");
-      let url = ClienteApiRestService.BASE_URI_HOTELS + "/" + idh + "/rooms/" + idr;
+      console.log("Entering editRoomAvailability");
+      let url = ClientApiRestService.BASE_URI_HOTELS + "/" + idh + "/rooms/" + idr;
       return this.http.patch(url, {observe: 'response', responseType:'text'});
     }
 }

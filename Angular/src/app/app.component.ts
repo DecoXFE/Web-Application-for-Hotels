@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet, RouterModule } from '@angular/router';
-import { ClienteApiRestService } from './shared/client-api-rest.service';
+import { ClientApiRestService } from './shared/client-api-rest.service';
 import { Status, User } from './shared/user.model';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
@@ -15,6 +15,7 @@ import { NgIf } from '@angular/common';
 
 //TODO ADD ROUTING
 export class AppComponent {
+  title = "SmartBooking"
   user: User = {
     name: "",
     email: "",
@@ -22,19 +23,19 @@ export class AppComponent {
   };
   emailExistsMessage: string = "";
 
-  constructor(private clientApiRest: ClienteApiRestService) { }
+  constructor(private clientApiRest: ClientApiRestService) { }
 
   onSignIn() {
-    console.log("Entrando en submit");
+    console.log("Entering submit");
     this.clientApiRest.createUser(this.user).subscribe({
       next: (response) => {
-          console.log("Usuario creado con éxito:", response);
+          console.log("User created:", response);
           this.resetForm();
           // ! Revisar
           window.location.reload();
       },
       error: (error) => {
-          console.error("Error al crear el usuario:", error);
+          console.error("Error creating user:", error);
           this.emailExistsMessage = error.error;
       }
   });

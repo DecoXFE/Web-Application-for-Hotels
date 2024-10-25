@@ -39,7 +39,7 @@ public class BookingController {
         this.userRepository = ur;
     }
 
-    // * Crea una nueva reserva de habitacion para un usuario.
+    // * Creates a new booking for a roomtype and a user email
     @PostMapping()
     public void createBooking(@RequestBody Booking newBooking,
             @RequestParam RoomType roomType,
@@ -80,8 +80,7 @@ public class BookingController {
     }
 
     /*
-     * Devuelve la lista de las reservas en unas fechas y/o para una habitación
-     * dada (con query en la URI).
+     * Returns a list with all bookings in a date range and/or for a booking (URI QUERY)
      */
     @GetMapping()
     public List<Booking> findBookings(@RequestParam(required = false) Integer roomId,
@@ -102,16 +101,20 @@ public class BookingController {
             return bookings;
 
         } else
-            throw new BookingException("Error en los argumentos");
+            throw new BookingException("Arguments are incorrect");
     }
 
-    // Elimina una reserva existente.
+    /*
+     * Deletes an existing booking
+     */
     @DeleteMapping("/{id}")
     public void deleteBooking(@PathVariable Integer id) {
         bookingRepository.deleteById(id);
     }
 
-    // Devuelve los detalles de una reserva.
+    /*
+     * Returns the details of an existing booking
+     */
     @GetMapping("/{id}")
     public Optional<Booking> getBookingInfo(@PathVariable Integer id) {
         Optional<Booking> booking = bookingRepository.findById(id);
