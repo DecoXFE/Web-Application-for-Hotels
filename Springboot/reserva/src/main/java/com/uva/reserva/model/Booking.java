@@ -31,11 +31,13 @@ public class Booking {
     @Basic(optional = false)
     private LocalDate endDate;
 
+    // ! Link
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JsonIgnore
     private User userId;
 
+    // ! Link
     @JoinColumn(name = "room_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JsonIgnore
