@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -16,18 +17,19 @@ import jakarta.persistence.OneToMany;
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 
-// TODO: Revisar optionals
-// TODO: Revisar CascadeType
 public class Hotel {
     @Id
     @GeneratedValue
     @Basic(optional = false)
+    @Column(nullable = false)
     private Integer id;
 
     @Basic(optional = false)
+    @Column(nullable = false)
     private String name;
 
     @Basic(optional = false)
+    @Column(nullable = false)
     private Address address;
 
     @OneToMany(mappedBy = "hotelId", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
