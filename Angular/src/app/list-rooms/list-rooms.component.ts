@@ -39,8 +39,7 @@ export class ListRoomsComponent {
   changeAvailable(idr: Number){
     this.clientApiRest.editRoomAvailability(this.hotelId, idr).subscribe({
       next: (response) => {
-        // ! revisar
-        window.location.reload();
+        this.getRooms(this.hotelId);
       },
       error: (error) => {
         console.error("Error changing availability:", error);
