@@ -52,8 +52,7 @@ ng serve
 ```bash
 http://localhost:4200
 ```
-4. **Start Api:**
-Start ReservaApplication.java with bash or your preferred IDE.
+4. Start ReservaApplication.java with bash or your preferred IDE.
 
 # Authors
 Diego Valladolid Clemente and Izan Jiménez Girón
