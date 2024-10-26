@@ -27,6 +27,10 @@ Welcome to the Hotel Booking Web App project! This is a full-featured web applic
 
 <br>
 
+# Requirements
+- MariaDB configured with user prueba and password 0987654321 (You can change this settings in application.properties)
+- All the technologies listed before.
+
 # Setup & Installation 🚀
 1. **Clone the repository:**
 ```bash
@@ -46,6 +50,8 @@ ng serve
 ```bash
 http://localhost:4200
 ```
+4. **Start Api**
+Start ReservaApplication.java with bash or your preferred IDE.
 
 # Authors
 Diego Valladolid Clemente and Izan Jiménez Girón
