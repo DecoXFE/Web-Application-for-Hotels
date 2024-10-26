@@ -18,15 +18,16 @@ import jakarta.persistence.OneToMany;
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 
-// TODO: Revisar optionals
 // TODO: Revisar CascadeType
 public class User {
     @Id
     @GeneratedValue
     @Basic(optional = false)
+    @Column(nullable = false)
     private Integer id;
 
     @Basic(optional = false)
+    @Column(nullable = false)
     private String name;
 
     @Basic(optional = false)
@@ -38,6 +39,7 @@ public class User {
     private String password;
 
     @Basic(optional = false)
+    @Column(nullable = false)
     private @Enumerated(EnumType.STRING) UserStatus status;
 
     @OneToMany(mappedBy = "userId", fetch = FetchType.EAGER)

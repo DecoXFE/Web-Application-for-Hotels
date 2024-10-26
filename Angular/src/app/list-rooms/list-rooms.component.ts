@@ -1,4 +1,4 @@
-import { NgFor } from '@angular/common';
+import { NgClass, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Room } from '../shared/room.model';
@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-list-rooms',
   standalone: true,
-  imports: [NgFor, FormsModule],
+  imports: [NgFor, FormsModule, NgClass, NgIf],
   templateUrl: './list-rooms.component.html',
   styleUrl: './list-rooms.component.css'
 })
@@ -39,8 +39,7 @@ export class ListRoomsComponent {
   changeAvailable(idr: Number){
     this.clientApiRest.editRoomAvailability(this.hotelId, idr).subscribe({
       next: (response) => {
-        // ! revisar
-        window.location.reload();
+        this.getRooms(this.hotelId);
       },
       error: (error) => {
         console.error("Error changing availability:", error);

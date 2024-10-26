@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -17,25 +18,28 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-// TODO: Revisar optionals
-// TODO: Revisar CascadeType
 public class Booking {
     @Id
     @GeneratedValue
     @Basic(optional = false)
+    @Column(nullable = false)
     private Integer id;
 
     @Basic(optional = false)
+    @Column(nullable = false)
     private LocalDate startDate;
 
     @Basic(optional = false)
+    @Column(nullable = false)
     private LocalDate endDate;
 
+    // ! Link
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JsonIgnore
     private User userId;
 
+    // ! Link
     @JoinColumn(name = "room_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JsonIgnore

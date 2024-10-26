@@ -1,24 +1,41 @@
-<div class="container rooms-table">
-  <div class="row">
-    <div class="col-sm-12">
-      <table class="table table-striped table-hover table-bordered">
-        <thead>
-          <tr class="align-middle">
-            <th>Room number</th>
-            <th>Room type</th>
-            <th>Available</th>
-          </tr>
-        </thead>
-        <tbody class="table-group-divider">
-          <tr *ngFor="let room of rooms">
-            <td>{{room.roomNumber}}</td>
-            <td>{{room.roomType}}</td>
-            <td>
-              <input class="form-check-input" type="checkbox" name="available" [(ngModel)] = "room.available" (change)="changeAvailable(room.id)">
-            </td>
-          </tr>
-        </tbody>
-      </table>
+<div class="container ctop">
+  <h1>Rooms</h1>
+  <hr>
+  <div class="displayer">
+      <h2>Room listing</h2>
+      <p>Displays all rooms in the database.
+        <br>Click on the available button to change room availability.</p>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <table class="table table-hover">
+          <thead>
+            <tr class="align-middle">
+              <th>Room number</th>
+              <th>Room type</th>
+              <th>Available</th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+            <tr *ngFor="let room of rooms">
+              <td>{{ room.roomNumber }}</td>
+              <td>
+                <span *ngIf="room.roomType == 'SINGLE'" class="c-badge text-bg-single">Single</span>
+                <span *ngIf="room.roomType == 'DOUBLE'" class="c-badge text-bg-double">Double</span>
+                <span *ngIf="room.roomType == 'SUITE'" class="c-badge text-bg-suite">Suite</span>
+              </td>
+              <td>
+                <button 
+                  class="c-badge icon-btn" 
+                  [ngClass]="room.available ? 'text-bg-true' : 'text-bg-false'" 
+                  (click)="changeAvailable(room.id)">
+                  {{ room.available ? 'True' : 'False' }}
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

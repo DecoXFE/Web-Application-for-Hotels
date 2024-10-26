@@ -1,9 +1,3 @@
-.rooms-table{
-    margin-top:100px;
-    border-radius: 8px; /* Bordes redondeados */
-    box-shadow: 0px 0px 8px 0px #7a4cf869; /* Sombra */
-    padding:0;
-}
 .table{
     margin:0;
 }
@@ -20,4 +14,19 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.text-bg-single{
+    background-color: #CCE5FF;
+    color: #0B380E;
+}
+
+.text-bg-double{
+    background-color: #B9EEC6;
+    color: #0B380E;
+}
+
+.text-bg-suite{
+    background-color: #FEDBBD;
+    color: #0B380E;
 }

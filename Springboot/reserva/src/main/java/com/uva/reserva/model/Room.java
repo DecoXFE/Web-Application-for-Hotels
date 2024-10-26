@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -26,19 +27,21 @@ import jakarta.persistence.OneToMany;
         @NamedQuery(name = "Room.findAvailableRoomsInDateRangeByHotelId", query = "SELECT R FROM Room R WHERE R.hotelId.id = ?1 AND R.available = true AND NOT EXISTS(SELECT B FROM Booking B WHERE B.roomId = R AND B.startDate <= ?3 AND B.endDate >= ?2)")
 })
 
-// TODO: Revisar optionals
 // TODO: Revisar CascadeType
 public class Room {
     @Id
     @GeneratedValue
     @Basic(optional = false)
+    @Column(nullable = false)
     private Integer id;
 
     // ? unico para el hotel 
     @Basic(optional = false)
+    @Column(nullable = false)
     private String roomNumber;
 
     @Basic(optional = false)
+    @Column(nullable = false)
     private @Enumerated(EnumType.STRING) RoomType roomType;
 
     @Basic(optional = false)

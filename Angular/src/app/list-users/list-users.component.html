@@ -1,37 +1,55 @@
-<div class="container users-table">
-    <h1 class="d-flex justify-content-center">Users</h1>
-    <div class="row">
-        <div class="col-sm-12">
-            <table class="table table-striped table-hover table-bordered mt-2">
-                <thead>
-                    <tr class="align-middle">
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>
-                            <div class="status-header">
-                                Status
-                                <select class="form-select form-select-sm 
-                            selectStatus ms-6" id="statusFilter" (change)="getUsers()" [(ngModel)]="statusFilter">
-                                    <option value="">All</option>
-                                    <option value="NOBOOKINGS">None</option>
-                                    <option value="WITHACTIVEBOOKINGS">Active</option>
-                                    <option value="WITHINACTIVEBOOKINGS">Inactive</option>
-                                </select>
-                            </div>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody class="table-group-divider">
-                    <tr *ngFor="let user of users">
-                        <td>{{user.name}}</td>
-                        <td>{{user.email}}</td>
-                        <td>{{user.status}}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div *ngIf="users && users.length === 0" class="alert alert-info mt-3 d-flex">
-                No users available.
-              </div>
+<div class="container ctop">
+    <h1 class="">Users</h1>
+    <hr>
+    <div class="container displayer">
+        <h2>Registered Users</h2>
+        <p>
+            Displays all the users with the option to filter them.
+        </p>
+        <select class="form-select form-select-sm 
+        selectStatus ms-6" id="statusFilter" (change)="getUsers()" [(ngModel)]="statusFilter">
+            <option value="">All</option>
+            <option value="NOBOOKINGS">Without bookings</option>
+            <option value="WITHACTIVEBOOKINGS">With active bookings</option>
+            <option value="WITHINACTIVEBOOKINGS">With inactive bookings</option>
+        </select>
+
+
+        <div class="row" *ngIf="users && users.length !== 0">
+            <div class="col-sm-12">
+                <table class="table table-hover mt-2">
+                    <thead>
+                        <tr class="align-middle">
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>
+                                <div class="status-header">
+                                    Booking Status
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        <tr *ngFor="let user of users">
+                            <td>{{user.name}}</td>
+                            <td>{{user.email}}</td>
+                            <td>
+                                <span *ngIf="user.status == 'NOBOOKINGS'" class="c-badge text-bg-none">None</span>
+                                <span *ngIf="user.status == 'WITHACTIVEBOOKINGS'" class="c-badge text-bg-true">Active</span>
+                                <span *ngIf="user.status == 'WITHINACTIVEBOOKINGS'" class="c-badge text-bg-false">Inactive</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div *ngIf="users && users.length === 0" class="alert alert-info mt-4 d-flex align-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-exclamation-diamond-fill me-2" viewBox="0 0 16 16">
+                <path
+                    d="M9.05.435c-.58-.58-1.52-.58-2.1 0L.436 6.95c-.58.58-.58 1.519 0 2.098l6.516 6.516c.58.58 1.519.58 2.098 0l6.516-6.516c.58-.58.58-1.519 0-2.098zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+            </svg>
+            No users available.
         </div>
     </div>
 </div>
