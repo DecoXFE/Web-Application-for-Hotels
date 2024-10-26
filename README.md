@@ -25,7 +25,7 @@ Welcome to the Hotel Booking Web App project! This is a full-featured web applic
 - Routing: Angular Router
 - Styling: CSS for custom styles, Bootstrap (or other CSS framework) for responsive layout
 - Backend: SpringBoot
-- Database (optional): MySQL (v8.0.39)
+- Database: MariaDB or MySQL changing drivers and dependencies in application.properties and pom
 
 <br>
 
