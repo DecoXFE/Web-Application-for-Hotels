@@ -4,6 +4,7 @@
 
 # SmartBooking Web App 🏨
 Welcome to the Hotel Booking Web App project! This is a full-featured web application built using Angular that allows users to search, book, and manage hotel room reservations with ease.
+<br>
 **NOTE: THIS IS STILL IN DEVELOPMENT**
 
 <br>
