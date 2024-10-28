@@ -47,7 +47,7 @@ public class Room {
     @Basic(optional = false)
     private boolean available;
 
-    @OneToMany(mappedBy = "roomId", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "roomId", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Booking> bookingCollection;
 
     @JoinColumn(name = "hotel_id", referencedColumnName = "id")
