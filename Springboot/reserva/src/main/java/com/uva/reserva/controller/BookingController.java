@@ -39,7 +39,6 @@ public class BookingController {
         this.userRepository = ur;
     }
 
-    // * Creates a new booking for a roomtype and a user email
     @PostMapping()
     public void createBooking(@RequestBody Booking newBooking,
             @RequestParam RoomType roomType,
@@ -49,29 +48,31 @@ public class BookingController {
             throw new BookingException("End date is before start date");
         }
 
-        if(newBooking.getStartDate().isBefore(LocalDate.now())){
+        if (newBooking.getStartDate().isBefore(LocalDate.now())) {
             throw new BookingException("Start date has already passed");
         }
 
         Optional<User> userOptional = userRepository.findByEmail(userEmail);
-        Optional<Room> roomOptional = roomRepository.findByRoomType(roomType);
+        List<Room> roomList = roomRepository.findByRoomType(roomType);
 
         if (!userOptional.isPresent()) {
             throw new BookingException("Email doesn't exist");
         }
 
-        if (!roomOptional.isPresent()) {
+        if (roomList.isEmpty()) {
             throw new BookingException("No rooms available for the room type selected");
         }
 
         User user = userOptional.get();
-        Room room = roomOptional.get();
-        Integer overlappingBookings = bookingRepository
-                .findByRoomIdAndStartDateBeforeAndEndDateAfter(room, newBooking.getEndDate(),
-                        newBooking.getStartDate())
-                .size();
-        if (room.isAvailable() && overlappingBookings == 0) {
-            newBooking.setRoomId(room);
+
+        Optional<Room> availableRoom = roomList.stream()
+        .filter(room -> room.isAvailable() &&
+                bookingRepository.findByRoomIdAndStartDateBeforeAndEndDateAfter(
+                        room, newBooking.getEndDate(), newBooking.getStartDate()).isEmpty())
+        .findFirst();
+
+        if (availableRoom.isPresent()) {
+            newBooking.setRoomId(availableRoom.get());
             newBooking.setUserId(user);
             bookingRepository.save(newBooking);
         } else {
@@ -80,7 +81,8 @@ public class BookingController {
     }
 
     /*
-     * Returns a list with all bookings in a date range and/or for a booking (URI QUERY)
+     * Returns a list with all bookings in a date range and/or for a booking (URI
+     * QUERY)
      */
     @GetMapping()
     public List<Booking> findBookings(@RequestParam(required = false) Integer roomId,

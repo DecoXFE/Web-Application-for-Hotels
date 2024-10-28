@@ -16,5 +16,5 @@ public interface RoomRepository extends JpaRepository<Room, Integer> {
     List<Room> findAvailableRoomsInDateRangeByHotelId(Integer id, LocalDate start, LocalDate end);
     List<Room> findByHotelId(Optional<Hotel> hotel);
     Optional<Room> findByIdAndHotelId( Integer id, Optional<Hotel> hotel);
-    Optional<Room> findByRoomType(RoomType roomType);
+    List<Room> findByRoomType(RoomType roomType);
 }
