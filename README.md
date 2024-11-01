@@ -36,7 +36,7 @@ Welcome to the Hotel Booking Web App project! This is a full-featured web applic
 # Setup & Installation 🚀
 1. **Clone the repository:**
 ```bash
-git clone https://gitlab.inf.uva.es/diegval/Grupo7DBCS.git
+git clone https://github.com/DecoXFE/Web-Application-for-Hotels.git
 cd Grupo7DBCS
 ```
 2. **Install dependencies:**
